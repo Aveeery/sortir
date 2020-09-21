@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Modifier profil{% endblock %}
+
+{% block body %}
+
+    {{ form_start(profileForm) }}
+    {{ form_widget(profileForm) }}
+
+    <button type="submit">Modifier</button>
+    {{ form_end(profileForm) }}
+
+{% endblock %}
