@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -18,7 +19,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=40, unique=true)
      */
     private $username;
 
@@ -43,7 +44,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     private $mail;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $password;
 
@@ -127,7 +128,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
@@ -160,7 +161,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
 
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        return ['ROLE_USER'];
     }
 
     public function getSalt()
