@@ -25,7 +25,7 @@ class Event
     /**
      * @ORM\Column(type="datetime")
      */
-    private $StartDate;
+    private $startDate;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -79,12 +79,12 @@ class Event
 
     public function getStartDate(): ?\DateTimeInterface
     {
-        return $this->eventStartDate;
+        return $this->startDate;
     }
 
-    public function setStartDate(\DateTimeInterface $eventStartDate): self
+    public function setStartDate(\DateTimeInterface $startDate): self
     {
-        $this->eventStartDate = $eventStartDate;
+        $this->startDate = $startDate;
 
         return $this;
     }
