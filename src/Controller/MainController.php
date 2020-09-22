@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,10 +12,14 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index()
-    {
-        return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
-        ]);
-    }
+    public function home()
+        {
+            $eventRepo = $this->getDoctrine()->getRepository(Event::class);
+            $events = $eventRepo->findAll();
+
+
+            return $this->render('main/home.html.twig', [
+                'events' => $events
+            ]);
+        }
 }

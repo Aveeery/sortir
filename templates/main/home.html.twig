@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <h1>Hello {{ app.user.username }}! ✅</h1>
+    {% endif %}
+
+    {% include 'event/list.html.twig' %}
+
+    {% for message in app.flashes('success') %}
+        <div>{{ message }}</div>
+    {% endfor %}
+</div>
+{% endblock %}
