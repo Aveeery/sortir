@@ -14,6 +14,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
 {
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
+
     /**
      * @Route("/login", name="app_login")
      */
@@ -46,25 +51,19 @@ class UserController extends AbstractController
     {
         $idUser = $this->getUser()->getId();
 
-        $user = $this -> getDoctrine()->getRepository(User::class)->find($idUser);
+        $user = $this->getDoctrine()->getRepository(User::class)->find($idUser);
         $oldPassword = $user->getPassword();
 
         $profileForm = $this->createForm(UserType::class, $user);
-
-
 
         $profileForm->handleRequest($request);
 
         if($profileForm->isSubmitted() && $profileForm->isValid())
         {
-            if(empty($request->getPassword())){
+            if(empty($user->getPassword())){
                 $user->setPassword($oldPassword);
-                var_dump($profileForm->getData('password'));
-                die();
             } else {
-                var_dump($profileForm->getData('password'));
-                $user->setPassword($profileForm->getData('password'));
-                die();
+                $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
             }
 
             $em->flush();
