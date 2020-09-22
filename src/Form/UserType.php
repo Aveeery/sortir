@@ -23,7 +23,7 @@ class UserType extends AbstractType
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
                 'required' => false,
-                'first_options'  => ['label' => 'Modifier le mot de passe'],
+                'first_options'  => ['label' => 'Modifiez le mot de passe'],
                 'second_options' => ['label' => 'Confirmez le mot de passe'],
             ])
         ;

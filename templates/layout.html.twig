@@ -5,6 +5,9 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
+    {% block header %}
+        <header>{% include ('nav.html.twig') %}</header>
+    {% endblock %}
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
