@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Campus;
 use App\Entity\City;
 use App\Entity\Event;
 use App\Entity\Place;
@@ -14,13 +15,29 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class EventFixtures extends Fixture
 {
 
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
+
     public function load(ObjectManager $manager)
     {
         $faker = \Faker\Factory::create('fr_FR');
 
+        $campuses = [];
+        for ($i = 0; $i < 5; $i++)  {
+
+            $campus = new Campus();
+            $campus->setName($faker->monthName);
+            $campuses[] = $campus;
+            $manager->persist($campus);
+            $manager->flush();
+        }
+
 
         $statuses = [];
-
         for ($i = 0; $i < 5; $i++)  {
 
             $status = new Status();
@@ -54,8 +71,27 @@ class EventFixtures extends Fixture
             $manager->flush();
         }
 
+        $users = [];
         for ($i = 0; $i < 20; $i++)
+        {
+            $user = new User();
+            $password = $this->encoder->encodePassword($user, '1234');
 
+            $user->setUsername($faker->userName);
+            $user->setFirstname($faker->firstName);
+            $user->setLastname($faker->lastName);
+            $user->setAdmin(false);
+            $user->setActive(true);
+            $user->setMail($faker->email);
+            $user->setPassword($password);
+            $user->setCampus($faker->randomElement($campuses));
+            $users[] = $user;
+            $manager->persist($user);
+            $manager->flush();
+        }
+
+
+        for ($i = 0; $i < 20; $i++)
         {
             $event = new Event();
             $event->setStartDate($faker->dateTime('2008-04-25 08:37:17', 'UTC'));
@@ -65,13 +101,14 @@ class EventFixtures extends Fixture
             $event->setClosingDate($faker->dateTime('2008-04-25 08:37:17', 'UTC'));
             $event->setDuration('5');
             $event->setStatus($faker->randomElement($statuses));
+            $event->setMaxAttendees(rand(2, 10));
             $event->setUrlPicture(null);
-
+            $event->setOrganizer($faker->randomElement($users));
+            $event->setCampus($faker->randomElement($campuses));
             $manager->persist($event);
             $manager->flush();
 
         }
-
 
     }
 }

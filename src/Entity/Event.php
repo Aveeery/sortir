@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -59,6 +61,34 @@ class Event
      * @ORM\JoinColumn(nullable=false)
      */
     private $status;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $maxAttendees;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organizer;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class)
+     * @ORM\Column(nullable=true)
+     */
+    private $attendees;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $campus;
+
+    public function __construct()
+    {
+        $this->attendees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -158,6 +188,68 @@ class Event
     public function setStatus(?Status $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getMaxAttendees(): ?int
+    {
+        return $this->maxAttendees;
+    }
+
+    public function setMaxAttendees(int $maxAttendees): self
+    {
+        $this->maxAttendees = $maxAttendees;
+
+        return $this;
+    }
+
+    public function getOrganizer(): ?User
+    {
+        return $this->organizer;
+    }
+
+    public function setOrganizer(?User $organizer): self
+    {
+        $this->organizer = $organizer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getAttendees(): Collection
+    {
+        return $this->attendees;
+    }
+
+    public function addAttendee(User $attendee): self
+    {
+        if (!$this->attendees->contains($attendee)) {
+            $this->attendees[] = $attendee;
+        }
+
+        return $this;
+    }
+
+    public function removeAttendee(User $attendee): self
+    {
+        if ($this->attendees->contains($attendee)) {
+            $this->attendees->removeElement($attendee);
+        }
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
 
         return $this;
     }

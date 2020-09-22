@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -57,6 +59,12 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      * @ORM\Column(type="boolean")
      */
     private $active;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $campus;
 
     public function getId(): ?int
     {
@@ -173,4 +181,17 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     {
         // TODO: Implement eraseCredentials() method.
     }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
 }
