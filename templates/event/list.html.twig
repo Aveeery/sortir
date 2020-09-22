@@ -1,0 +1,58 @@
+<table>
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Date</th>
+        <th>Clôture</th>
+        <th>Inscrits / Places</th>
+        <th>Etat</th>
+        <th>Inscrit ?</th>
+        <th>Organisateur</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    {% for event in events %}
+    <tr>
+        <td>{{ event.name }}</td>
+        <td>{{ event.startDate | date("d/m/Y") }}</td>
+        <td>{{ event.closingDate | date("d/m/Y") }}</td>
+        <td>{{ event.attendees | length }}/{{ event.maxAttendees }}</td>
+        <td>{{ event.status.label }}</td>
+        <td>
+            {% set idAttendee = " " %}
+            {% for attendee in event.attendees %}
+                {% if  attendee.id  ==  app.user.id %}
+                    X
+                    {% set idAttendee = attendee.id %}
+                {% endif %}
+            {% endfor %}
+
+        </td>
+        <td>{{ event.organizer.username }}</td>
+        <td>
+
+            {% if event.status.label != 'En création' %}
+                <a href="">Afficher</a>
+            {% endif %}
+
+            {% if event.status.label == 'Ouvert' and idAttendee != app.user.id %}
+                <a href="">S'inscrire</a>
+            {% endif %}
+
+            {% if event.status.label == 'Ouvert' and idAttendee == app.user.id %}
+                <a href="">Se désister</a>
+            {% endif %}
+
+            {% if event.organizer.id == app.user.id %}
+                {% if event.status.label == 'Ouvert' %}
+                    <a href="">Annuler</a>
+                {% endif %}
+                {% if event.status.label == 'En création' %}
+                    <a href="">Modifier</a>
+                    <a href="">Publier</a>
+                {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>

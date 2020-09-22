@@ -66,6 +66,16 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      */
     private $campus;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="attendees")
+     */
+    private $events;
+
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -194,4 +204,31 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
         return $this;
     }
 
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->addAttendee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            $event->removeAttendee($this);
+        }
+
+        return $this;
+    }
 }

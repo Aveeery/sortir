@@ -93,6 +93,7 @@ class EventFixtures extends Fixture
 
         for ($i = 0; $i < 20; $i++)
         {
+            $rand = rand(1, 7);
             $event = new Event();
             $event->setStartDate($faker->dateTime('2008-04-25 08:37:17', 'UTC'));
             $event->setName($faker->word);
@@ -101,10 +102,14 @@ class EventFixtures extends Fixture
             $event->setClosingDate($faker->dateTime('2008-04-25 08:37:17', 'UTC'));
             $event->setDuration('5');
             $event->setStatus($faker->randomElement($statuses));
-            $event->setMaxAttendees(rand(2, 10));
+            $event->setMaxAttendees(rand(7, 15));
             $event->setUrlPicture(null);
             $event->setOrganizer($faker->randomElement($users));
             $event->setCampus($faker->randomElement($campuses));
+
+            for ($i= 0; $i < $rand; $i++) {
+            $event->addAttendee($faker->randomElement($users));
+            }
             $manager->persist($event);
             $manager->flush();
 

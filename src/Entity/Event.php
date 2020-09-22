@@ -73,17 +73,17 @@ class Event
      */
     private $organizer;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=User::class)
-     * @ORM\Column(nullable=true)
-     */
-    private $attendees;
 
     /**
      * @ORM\ManyToOne(targetEntity=Campus::class)
      * @ORM\JoinColumn(nullable=true)
      */
     private $campus;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="events")
+     */
+    private $attendees;
 
     public function __construct()
     {
@@ -216,6 +216,18 @@ class Event
         return $this;
     }
 
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
     /**
      * @return Collection|User[]
      */
@@ -238,18 +250,6 @@ class Event
         if ($this->attendees->contains($attendee)) {
             $this->attendees->removeElement($attendee);
         }
-
-        return $this;
-    }
-
-    public function getCampus(): ?Campus
-    {
-        return $this->campus;
-    }
-
-    public function setCampus(?Campus $campus): self
-    {
-        $this->campus = $campus;
 
         return $this;
     }
