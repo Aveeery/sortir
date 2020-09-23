@@ -37,15 +37,16 @@ class EventFixtures extends Fixture
         }
 
 
-        $statuses = [];
-        for ($i = 0; $i < 5; $i++)  {
-
+        $statuses = ['En création', 'Ouverte', 'Fermée', 'En cours'];
+        $statusObjects = [];
+        for ($i=0; $i < sizeof($statuses); $i++)  {
             $status = new Status();
-            $status->setLabel($faker->colorName);
-            $statuses[] = $status;
+            $status -> setLabel($statuses[$i]);
             $manager->persist($status);
+            $statusObjects [] = $status;
             $manager->flush();
         }
+
 
         $cities = [];
         for ($i = 0; $i < 10; $i++) {
@@ -101,19 +102,18 @@ class EventFixtures extends Fixture
             $event->setPlace($faker->randomElement($places));
             $event->setClosingDate($faker->dateTime('2008-04-25 08:37:17', 'UTC'));
             $event->setDuration('5');
-            $event->setStatus($faker->randomElement($statuses));
+            $event->setStatus($faker->randomElement($statusObjects));
             $event->setMaxAttendees(rand(7, 15));
             $event->setUrlPicture(null);
             $event->setOrganizer($faker->randomElement($users));
             $event->setCampus($faker->randomElement($campuses));
 
-            for ($i= 0; $i < $rand; $i++) {
+            for ($j= 0; $j < $rand; $j++) {
             $event->addAttendee($faker->randomElement($users));
             }
             $manager->persist($event);
             $manager->flush();
 
         }
-
     }
 }
