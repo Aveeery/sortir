@@ -27,24 +27,24 @@
                 {% endif %}
             {% endfor %}
 
+            {# On affiche des liens en fonction de l'état de la sortie et de la situation de l'utilisateur par rapport à chaque sortie #}
         </td>
         <td>{{ event.organizer.username }}</td>
         <td>
-
             {% if event.status.label != 'En création' %}
                 <a href="">Afficher</a>
             {% endif %}
 
-            {% if event.status.label == 'Ouvert' and idAttendee != app.user.id %}
+            {% if event.status.label == 'Ouverte' and idAttendee != app.user.id %}
                 <a href="">S'inscrire</a>
             {% endif %}
 
-            {% if event.status.label == 'Ouvert' and idAttendee == app.user.id %}
+            {% if event.status.label == 'Ouverte' and idAttendee == app.user.id %}
                 <a href="">Se désister</a>
             {% endif %}
 
             {% if event.organizer.id == app.user.id %}
-                {% if event.status.label == 'Ouvert' %}
+                {% if event.status.label == 'Ouverte' %}
                     <a href="">Annuler</a>
                 {% endif %}
                 {% if event.status.label == 'En création' %}

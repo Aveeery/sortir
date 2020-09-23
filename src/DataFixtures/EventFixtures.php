@@ -15,13 +15,17 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class EventFixtures extends Fixture
 {
 
+
+
     private $encoder;
+
 
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
     }
 
+    //Création de fake datas sur toutes les tables
     public function load(ObjectManager $manager)
     {
         $faker = \Faker\Factory::create('fr_FR');
@@ -37,15 +41,16 @@ class EventFixtures extends Fixture
         }
 
 
-        $statuses = [];
-        for ($i = 0; $i < 5; $i++)  {
-
+        $statuses = ['En création', 'Ouverte', 'Fermée', 'En cours'];
+        $statusObjects = [];
+        for ($i=0; $i < sizeof($statuses); $i++)  {
             $status = new Status();
-            $status->setLabel($faker->colorName);
-            $statuses[] = $status;
+            $status -> setLabel($statuses[$i]);
             $manager->persist($status);
+            $statusObjects [] = $status;
             $manager->flush();
         }
+
 
         $cities = [];
         for ($i = 0; $i < 10; $i++) {
@@ -101,7 +106,7 @@ class EventFixtures extends Fixture
             $event->setPlace($faker->randomElement($places));
             $event->setClosingDate($faker->dateTime('2008-04-25 08:37:17', 'UTC'));
             $event->setDuration('5');
-            $event->setStatus($faker->randomElement($statuses));
+            $event->setStatus($faker->randomElement($statusObjects));
             $event->setMaxAttendees(rand(7, 15));
             $event->setUrlPicture(null);
             $event->setOrganizer($faker->randomElement($users));
