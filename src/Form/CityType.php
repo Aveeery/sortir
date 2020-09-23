@@ -13,7 +13,6 @@ class CityType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('postCode')
         ;
     }
 

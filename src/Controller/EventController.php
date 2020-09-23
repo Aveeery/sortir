@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\City;
 use App\Entity\Event;
+use App\Entity\Place;
 use App\Entity\User;
 use App\Form\EventType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Form;
@@ -49,5 +52,16 @@ class EventController extends AbstractController
             'controller_name' => 'EventController',
             'eventForm' => $eventform->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/places", name="show_places")
+     */
+    public function showPlaces(Request $request){
+        $idCity = $request->query->get('id');
+        $placeRepo = $this ->getDoctrine()->getRepository(Place::class);
+        $idPlaces = $placeRepo->findAllByCity($idCity);
+
+        return new JsonResponse(json_encode($idPlaces));
     }
 }

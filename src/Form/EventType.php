@@ -27,12 +27,16 @@ class EventType extends AbstractType
             ->add('closingDate')
             ->add('description')
             ->add('maxAttendees')
+            ->add('city', EntityType::class, [
+                'class' => City::class,
+                'mapped' => false
+            ])
             ->add('place', null, [
                 'label' => 'lieu',
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'placeholder' => 'Sélectionner le lieu'
             ])
             ;
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
