@@ -18,9 +18,7 @@ class EventController extends AbstractController
      */
     public function createEvent(Request $request, EntityManagerInterface $em)
     {
-<<<<<<< HEAD
-        
-=====
+
         $event = new Event();
 
         $idUser = $this->getUser()->getId();
@@ -48,7 +46,6 @@ class EventController extends AbstractController
         }
 
         return $this->render('event/index.html.twig', [
->>>>>>> form first version
             'controller_name' => 'EventController',
             'eventForm' => $eventform->createView(),
         ]);
