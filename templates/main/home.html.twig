@@ -7,6 +7,10 @@
     <h1>Hello {{ app.user.username }}! ✅</h1>
     {% endif %}
 
+
+    {{ form(filterForm) }}
+
+
     {% include 'event/list.html.twig' %}
 
     {% for message in app.flashes('success') %}

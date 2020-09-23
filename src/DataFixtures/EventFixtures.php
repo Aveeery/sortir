@@ -15,13 +15,17 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class EventFixtures extends Fixture
 {
 
+
+
     private $encoder;
+
 
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
     }
 
+    //Création de fake datas sur toutes les tables
     public function load(ObjectManager $manager)
     {
         $faker = \Faker\Factory::create('fr_FR');
