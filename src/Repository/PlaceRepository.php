@@ -19,6 +19,16 @@ class PlaceRepository extends ServiceEntityRepository
         parent::__construct($registry, Place::class);
     }
 
+    public function findAllByCity($idCity)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.city = :val')
+            ->setParameter('val', $idCity)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Place[] Returns an array of Place objects
     //  */
