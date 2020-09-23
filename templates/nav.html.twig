@@ -2,7 +2,7 @@
     <ul>
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <li><a href="{{ path ('app_logout') }}">Se déconnecter</a></li>
-            <li><a href="">Sorties</a></li>
+            <li><a href="{{ path ('create_event') }}">Créer une sortie</a></li>
         {% else %}
             <li><a href="{{ path ('app_login') }}">Se connecter</a></li>
         {% endif %}

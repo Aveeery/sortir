@@ -1,4 +1,3 @@
-
 <?php
 
 namespace App\Repository;
@@ -38,30 +37,28 @@ class EventRepository extends ServiceEntityRepository
     }
     */
 
-
-
 //    Filtre l'affichage des events avec l'incrémentation d'une requête SQL en fonction des critères séléctionnés par l'utilisateur
-    public function filterEvents($criterias, $userId)
+    public function filterEvents($criteria, $userId)
     {
 
         $qb = $this->createQueryBuilder('e')
             ->select('e');
 
 
-        if (strlen($criterias['name']) > 0) {
+        if (strlen($criteria['name']) > 0) {
             $qb->andWhere('e.name = :name')
-                ->setParameter('name', $criterias['name']);
+                ->setParameter('name', $criteria['name']);
         }
 
-        if (strlen($criterias['campus']) > 0) {
+        if (strlen($criteria['campus']) > 0) {
             $qb
                 ->addSelect('c')
                 ->join('e.campus', 'c')
                 ->andWhere('c.name = :campusName')
-                ->setParameter('campusName', $criterias['campus']);
+                ->setParameter('campusName', $criteria['campus']);
         }
 
-        if ($criterias['organizer']) {
+        if ($criteria['organizer']) {
             $qb
                 ->addSelect('u')
                 ->join('e.organizer', 'u')
@@ -69,7 +66,7 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('userId', $userId);
         }
 
-        if ($criterias['registered']) {
+        if ($criteria['registered']) {
             $qb
                 ->addSelect('us')
                 ->join('e.attendees', 'us')
@@ -77,7 +74,7 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('userId', $userId);
         }
 
-        if ($criterias['notRegistered']) {
+        if ($criteria['notRegistered']) {
             $qb
                 ->addSelect('use')
                 ->join('e.attendees', 'use')
@@ -85,20 +82,20 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('userId', $userId);
         }
 
-        if ($criterias['firstDate']) {
+        if ($criteria['firstDate']) {
             $qb
                 ->andWhere('e.startDate > :firstDate')
-                ->setParameter('firstDate', $criterias['firstDate']);
+                ->setParameter('firstDate', $criteria['firstDate']);
         }
 
-        if ($criterias['secondDate']) {
+        if ($criteria['secondDate']) {
             $qb
                 ->andWhere('e.startDate < :secondDate')
-                ->setParameter('secondDate', $criterias['secondDate']);
+                ->setParameter('secondDate', $criteria['secondDate']);
         }
 
 
-        if ($criterias['over']) {
+        if ($criteria['over']) {
             $qb
                 ->addSelect('s')
                 ->join('e.status', 's')
