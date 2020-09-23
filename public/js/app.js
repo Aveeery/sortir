@@ -14,7 +14,7 @@
             $.ajax({
                 url: url,
                 type: "GET",
-                data: { id: id.val()},
+                data: { id: id.val()};
 
                 success: function(data) {
                     var places = JSON.parse(data);
