@@ -52,13 +52,13 @@ class Event
 
     /**
      * @ORM\ManyToOne(targetEntity=Place::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, name="place_id")
      */
     private $place;
 
     /**
      * @ORM\ManyToOne(targetEntity=Status::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $status;
 

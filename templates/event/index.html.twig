@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Créer une sortie{% endblock %}
+
+{% block body %}
+
+    {{ form_start(eventForm) }}
+        {{ form_widget(eventForm) }}
+
+    <button type="submit">Créer</button>
+    {{ form_end(eventForm) }}
+
+
+{% endblock %}

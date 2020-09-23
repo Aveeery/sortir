@@ -57,5 +57,6 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->setParameter('mail', $usernameOrEmail)
             ->getQuery()
             ->getOneOrNullResult();
+
     }
 }
