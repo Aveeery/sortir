@@ -107,7 +107,7 @@ class EventFixtures extends Fixture
             $event->setOrganizer($faker->randomElement($users));
             $event->setCampus($faker->randomElement($campuses));
 
-            for ($i= 0; $i < $rand; $i++) {
+            for ($j= 0; $j < $rand; $j++) {
             $event->addAttendee($faker->randomElement($users));
             }
             $manager->persist($event);
