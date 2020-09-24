@@ -20,8 +20,8 @@ class FilterEventType extends AbstractType
         $builder
             ->add('campus', TextType::class, ['mapped' => false, 'required' => false])
             ->add('name',TextType::class, ['required' => false])
-            ->add('firstDate', DateType::class, [ 'required' => false])
-            ->add('secondDate', DateType::class, [ 'required' => false])
+            ->add('firstDate', DateType::class, [ 'required' => false, 'widget' => 'single_text'])
+            ->add('secondDate', DateType::class, [ 'required' => false, 'widget' => 'single_text'])
             ->add('organizer', CheckBoxType::class,  ['label' => 'J\'organise', 'mapped' => false, 'required' => false])
             ->add('registered', CheckboxType::class,  ['label' => 'Je suis inscrit', 'mapped' => false, 'required' => false])
             ->add('notRegistered', CheckboxType::class,  ['label' => 'Je ne suis pas inscrit', 'mapped' => false,'required' => false])
