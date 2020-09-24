@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\ProfilePicture;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,6 +16,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('profilePicture', ProfilePictureType::class, ['label' => " "])
             ->add('username', null, ['label' => 'Pseudo'])
             ->add('firstname', null, ['label' => 'Prénom'])
             ->add('lastname', null, ['label' => 'Nom'])

@@ -52,24 +52,29 @@ class UserController extends AbstractController
     public function updateProfile(Request $request, EntityManagerInterface $em)
     {
         $idUser = $this->getUser()->getId();
-
         $user = $this->getDoctrine()->getRepository(User::class)->find($idUser);
         $oldPassword = $user->getPassword();
-
         $profileForm = $this->createForm(UserType::class, $user);
 
         $profileForm->handleRequest($request);
 
-
-        //Si le formulaire est soumis sans que le password ne soit changé, on insère la valeur de l'ancien password dans le nouveau
         if($profileForm->isSubmitted() && $profileForm->isValid())
         {
-            if(empty($user->getPassword())){
-                $user->setPassword($oldPassword);
-            } else {
-                $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
-            }
+            $user = $profileForm->getData();
 
+            $path = $this->getParameter("kernel.project_dir") . '/public/profilePictures';
+            $profilePicture = $user->getProfilePicture();
+
+            $pictureFile = $profilePicture->getFile();
+
+            $name = md5(uniqid()). '.'.$pictureFile->guessExtension();
+
+            $profilePicture->setName($name);
+            $pictureFile->move($path, $name);
+
+
+            //Si le formulaire est soumis sans que le password ne soit changé, on insère la valeur de l'ancien password dans le nouveau
+            $this->updatePassword($oldPassword, $user);
             $em->flush();
 
             $this->addFlash('success', 'Profil modifié');
@@ -79,6 +84,16 @@ class UserController extends AbstractController
         return $this->render('user/update.html.twig', [
             "profileForm" => $profileForm->createView()
         ]);
+    }
+
+    //Si le formulaire est soumis sans que le password ne soit changé, on insère la valeur de l'ancien password dans le nouveau
+    public function updatePassword($oldPassword, $user){
+
+        if(empty($user->getPassword())){
+            $user->setPassword($oldPassword);
+        } else {
+            $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
+        }
     }
 
     /**
