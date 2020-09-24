@@ -15,6 +15,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UserController extends AbstractController
 {
     private $encoder;
+
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
@@ -25,9 +26,9 @@ class UserController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-         if ($this->getUser()) {
-             return $this->redirectToRoute('home');
-         }
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -58,20 +59,9 @@ class UserController extends AbstractController
 
         $profileForm->handleRequest($request);
 
-        if($profileForm->isSubmitted() && $profileForm->isValid())
-        {
-            $user = $profileForm->getData();
+        if ($profileForm->isSubmitted() && $profileForm->isValid()) {
 
-            $path = $this->getParameter("kernel.project_dir") . '/public/profilePictures';
-            $profilePicture = $user->getProfilePicture();
-
-            $pictureFile = $profilePicture->getFile();
-
-            $name = md5(uniqid()). '.'.$pictureFile->guessExtension();
-
-            $profilePicture->setName($name);
-            $pictureFile->move($path, $name);
-
+            $this->uploadPicture($user, $profileForm);
 
             //Si le formulaire est soumis sans que le password ne soit changé, on insère la valeur de l'ancien password dans le nouveau
             $this->updatePassword($oldPassword, $user);
@@ -86,10 +76,27 @@ class UserController extends AbstractController
         ]);
     }
 
-    //Si le formulaire est soumis sans que le password ne soit changé, on insère la valeur de l'ancien password dans le nouveau
-    public function updatePassword($oldPassword, $user){
 
-        if(empty($user->getPassword())){
+    public function uploadPicture($user, $form)
+    {
+        $user = $form->getData();
+
+        $path = $this->getParameter("kernel.project_dir") . '/public/profilePictures';
+        $profilePicture = $user->getProfilePicture();
+
+        $pictureFile = $profilePicture->getFile();
+
+        $name = md5(uniqid()) . '.' . $pictureFile->guessExtension();
+
+        $profilePicture->setName($name);
+        $pictureFile->move($path, $name);
+    }
+
+    //Si le formulaire est soumis sans que le password ne soit changé, on insère la valeur de l'ancien password dans le nouveau
+    public function updatePassword($oldPassword, $user)
+    {
+
+        if (empty($user->getPassword())) {
             $user->setPassword($oldPassword);
         } else {
             $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
@@ -105,7 +112,7 @@ class UserController extends AbstractController
         $user = $profilRepo->find($id);
 
         return $this->render('user/profile.html.twig', [
-            "user"=>$user
+            "user" => $user
         ]);
     }
 }
