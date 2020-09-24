@@ -57,7 +57,7 @@ class Event
     private $place;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Status::class)
+     * @ORM\ManyToOne(targetEntity=Status::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $status;

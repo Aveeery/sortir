@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\City;
 use App\Entity\Event;
 use App\Entity\Place;
+use App\Entity\Status;
 use App\Entity\User;
 use App\Form\EventType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,16 +25,12 @@ class EventController extends AbstractController
     {
 
         $event = new Event();
-
-        $idUser = $this->getUser()->getId();
-
         $user = new User();
-
-        $user = $this->getDoctrine()->getRepository(User::class)->find($idUser);
-
-        $event->setOrganizer($user);
+        $status = new Status();
 
         $event->setCampus($user->getCampus());
+        $idUser = $this->getUser()->getId();
+        $user = $this->getDoctrine()->getRepository(User::class)->find($idUser);
 
         $eventform = $this->createForm(EventType::class, $event);
 
@@ -41,7 +38,18 @@ class EventController extends AbstractController
 
         if($eventform->isSubmitted() && $eventform->isValid())
         {
+            $event->setOrganizer($user);
 
+            if( $eventform->get('stashEvent')->isClicked()) {
+                $status->setLabel('En création');
+            }
+
+
+            if ( $eventform->get('publishEvent')->isClicked()) {
+                $status->setLabel('Ouverte');
+            }
+
+            $event->setStatus($status);
             $em->persist($event);
             $em->flush();
 

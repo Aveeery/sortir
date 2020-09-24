@@ -9,7 +9,6 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Event|null find($id, $lockMode = null, $lockVersion = null)
  * @method Event|null findOneBy(array $criteria, array $orderBy = null)
- * @method Event[]    findAll()
  * @method Event[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class EventRepository extends ServiceEntityRepository
@@ -36,6 +35,15 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAll() {
+        return $this->createQueryBuilder('e')
+            ->select('e', 'u', 's')
+            ->join('e.status', 's')
+            ->join('e.organizer', 'u')
+            ->getQuery()
+            ->getResult();
+    }
 
 //    Filtre l'affichage des events avec l'incrémentation d'une requête SQL en fonction des critères séléctionnés par l'utilisateur
     public function filterEvents($criteria, $userId)
