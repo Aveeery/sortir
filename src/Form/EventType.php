@@ -8,6 +8,7 @@ use App\Entity\Place;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -36,6 +37,8 @@ class EventType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => 'Sélectionner le lieu'
             ])
+            ->add('publishEvent', SubmitType::class,  ['label' => 'Publier'])
+            ->add('stashEvent', SubmitType::class,  ['label' => 'Enregistrer'])
             ;
     }
 
