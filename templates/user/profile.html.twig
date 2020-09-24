@@ -4,6 +4,10 @@
 
 {% block body %}
 
+   {% if user.profilePicture.name is defined %}
+   <img src="{{asset ('profilePictures/')~user.profilePicture.name }}">
+   {% endif %}
+
    <h1>{{ user.username }}</h1>
    <p>Prénom : {{ user.firstname }}</p>
    <p>Nom : {{ user.lastname }}</p>

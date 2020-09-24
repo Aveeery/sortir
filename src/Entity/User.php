@@ -20,6 +20,28 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      */
     private $id;
 
+
+    /**
+     * @ORM\OneToOne(targetEntity="ProfilePicture", cascade={"persist", "remove"})
+     */
+    private $profilePicture;
+
+    /**
+     * @return mixed
+     */
+    public function getProfilePicture():?ProfilePicture
+    {
+        return $this->profilePicture;
+    }
+
+    /**
+     * @param mixed $profilePicture
+     */
+    public function setProfilePicture($profilePicture): void
+    {
+        $this->profilePicture = $profilePicture;
+    }
+
     /**
      * @ORM\Column(type="string", length=40, unique=true)
      */
