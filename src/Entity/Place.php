@@ -118,7 +118,8 @@ class Place implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            $this->id
+            $this->id,
+            $this->name
         ];
     }
 }
