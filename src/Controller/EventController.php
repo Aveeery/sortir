@@ -34,7 +34,6 @@ class EventController extends AbstractController
 
         $eventform->handleRequest($request);
 
-
         if ($eventform->isSubmitted() && $eventform->isValid()) {
 
             $this->initialiazeEvent($eventform, $user, $event, $em);
