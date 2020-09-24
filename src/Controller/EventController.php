@@ -24,12 +24,16 @@ class EventController extends AbstractController
      */
     public function createEvent(Request $request, EntityManagerInterface $em)
     {
+        $event = new Event();
+        $user = new User();
+        $status = new Status();
+
         $idUser = $this->getUser()->getId();
         $user = $this->getDoctrine()->getRepository(User::class)->find($idUser);
-        $event = new Event();
         $eventform = $this->createForm(EventType::class, $event);
 
         $eventform->handleRequest($request);
+
 
         if ($eventform->isSubmitted() && $eventform->isValid()) {
 

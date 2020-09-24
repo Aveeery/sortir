@@ -4,6 +4,7 @@
 
 {% block body %}
 
+    <a href="{{ path('create_place') }}">Ajouter un lieu</a>
     {{ form_start(eventForm) }}
     {{ form_widget(eventForm) }}
     {{ form_end(eventForm) }}
