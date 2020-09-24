@@ -120,4 +120,15 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAttendees($idEvent)
+    {
+        return $this->createQueryBuilder('e')
+            ->addSelect('u')
+            ->join('e.attendees', 'u')
+            ->where('e.id = :idEvent')
+            ->setParameter('idEvent', $idEvent)
+            ->getQuery()
+            ->getResult();
+    }
 }

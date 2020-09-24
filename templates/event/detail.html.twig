@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ event.name }}{% endblock %}
+
+{% block body %}
+
+    <p>Nom de la sortie : {{ event.name }}</p>
+    <p>Date et heure de la sortie : {{ event.startDate | date("d/m/Y H:i") }}</p>
+    <p>Date limite d'inscription : {{ event.closingDate | date("d/m/Y")  }}</p>
+    <p>Nombre de places : {{ event.maxAttendees }}</p>
+    <p>Durée : {{ event.duration }} minutes
+    <p>Description et infos : {{ event.description }}</p>
+    <p>Campus : {{ event.campus.name }}
+    <p>Lieu : {{ event.place.name }}</p>
+    <p>Rue : {{ event.place.street }}</p>
+    <p>Code postal : {{ event.place.city.postCode }}</p>
+    <p>Latitude : {{ event.place.longitude }}</p>
+
+    <p>Liste des participants inscrits :</p>
+    <table>
+        <thead>
+            <td>Pseudo</td>
+            <td>Nom</td>
+        </thead>
+        <tbody>
+            {% for attendee in event.attendees %}
+                <tr>
+                    <td><a href="{{ path('profile', {'id': attendee.id}) }}">{{ attendee.username }}</a></td>
+                    <td>{{ attendee.firstName }} {{ attendee.lastName }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

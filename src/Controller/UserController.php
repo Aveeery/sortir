@@ -80,4 +80,17 @@ class UserController extends AbstractController
             "profileForm" => $profileForm->createView()
         ]);
     }
+
+    /**
+     * @Route("/profile/{id}", name="profile")
+     */
+    public function showProfile($id)
+    {
+        $profilRepo = $this->getDoctrine()->getRepository(User::class);
+        $user = $profilRepo->find($id);
+
+        return $this->render('user/profile.html.twig', [
+            "user"=>$user
+        ]);
+    }
 }

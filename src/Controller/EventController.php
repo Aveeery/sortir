@@ -56,6 +56,21 @@ class EventController extends AbstractController
     }
 
     /**
+     * @Route("/event/{id}", name="event_detail")
+     */
+    public function detail($id)
+    {
+        $eventRepo = $this->getDoctrine()->getRepository(Event::class);
+        $event = $eventRepo->find($id);
+        $attendees = $eventRepo->findAttendees($id);
+
+        return $this->render('event/detail.html.twig', [
+            'event' => $event,
+            'attendees' => $attendees
+        ]);
+    }
+
+    /**
      * @Route("/places", name="show_places")
      */
     public function showPlaces(Request $request){
