@@ -2,6 +2,14 @@
 
 {% block body %}
 
+    {% for messages in app.flashes(['success', 'error']) %}
+        <div class="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
 <div class="example-wrapper">
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     <h1>Hello {{ app.user.username }}! ✅</h1>

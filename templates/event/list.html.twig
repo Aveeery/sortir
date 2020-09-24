@@ -36,16 +36,16 @@
             {% endif %}
 
             {% if event.status.label == 'Ouverte' and idAttendee != app.user.id %}
-                <a href="">S'inscrire</a>
+                <a href="{{ path('signup', {id: event.id }) }}">S'inscrire</a>
             {% endif %}
 
             {% if event.status.label == 'Ouverte' and idAttendee == app.user.id %}
-                <a href="">Se désister</a>
+                <a href="{{ path('signout', {id: event.id }) }}">Se désister</a>
             {% endif %}
 
             {% if event.organizer.id == app.user.id %}
                 {% if event.status.label == 'Ouverte' %}
-                    <a href="">Annuler</a>
+                    <a href="{{ path('remove', {id: event.id }) }}">Annuler</a>
                 {% endif %}
                 {% if event.status.label == 'En création' %}
                     <a href="">Modifier</a>
