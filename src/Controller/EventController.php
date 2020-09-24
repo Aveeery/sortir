@@ -28,7 +28,7 @@ class EventController extends AbstractController
         $user = new User();
         $status = new Status();
 
-        $event->setCampus($user->getCampus());
+
         $idUser = $this->getUser()->getId();
         $user = $this->getDoctrine()->getRepository(User::class)->find($idUser);
 
@@ -39,6 +39,7 @@ class EventController extends AbstractController
         if($eventform->isSubmitted() && $eventform->isValid())
         {
             $event->setOrganizer($user);
+            $event->setCampus($user->getCampus());
 
             if( $eventform->get('stashEvent')->isClicked()) {
                 $status->setLabel('En création');
