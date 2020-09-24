@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block body %}
+
+   <h1>{{ user.username }}</h1>
+   <p>Prénom : {{ user.firstname }}</p>
+   <p>Nom : {{ user.lastname }}</p>
+   {% if user.phoneNumber %}
+   <p>Téléphone : {{ user.phoneNumber }}</p>
+   {% endif %}
+   <p>Email : {{ user.mail }}</p>
+   <p>Campus : {{ user.campus.name }}
+
+   <a href="{{ path('home')}}">Retour</a>
+
+{% endblock %}

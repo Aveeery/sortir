@@ -29,10 +29,10 @@
 
             {# On affiche des liens en fonction de l'état de la sortie et de la situation de l'utilisateur par rapport à chaque sortie #}
         </td>
-        <td>{{ event.organizer.username }}</td>
+        <td><a href="{{ path('profile', {'id': event.organizer.id}) }}">{{ event.organizer.username }}</a></td>
         <td>
             {% if event.status.label != 'En création' %}
-                <a href="">Afficher</a>
+                <a href="{{ path('event_detail', {'id': event.id}) }}">Afficher</a>
             {% endif %}
 
             {% if event.status.label == 'Ouverte' and idAttendee != app.user.id %}
