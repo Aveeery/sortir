@@ -51,7 +51,7 @@ class Event
     private $urlPicture;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Place::class)
+     * @ORM\ManyToOne(targetEntity=Place::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false, name="place_id")
      */
     private $place;

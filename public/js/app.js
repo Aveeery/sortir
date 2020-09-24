@@ -9,12 +9,12 @@
             var id = $("#event_city option:selected");
 
             // TODO modifier url + problème affichage ancien lieu sélectionné
-            var url = 'http://localhost/sortir/public/places';
+            var url = 'http://localhost:8888/sortir/public/places';
 
             $.ajax({
                 url: url,
                 type: "GET",
-                data: { id: id.val()};
+                data: { id: id.val()},
 
                 success: function(data) {
                     var places = JSON.parse(data);
