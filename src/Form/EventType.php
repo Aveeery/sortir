@@ -28,6 +28,7 @@ class EventType extends AbstractType
 
         $builder
             ->add('city', EntityType::class, [
+                'placeholder' => 'Sélectionner une ville',
                 'class' => City::class,
                 'mapped' => false
             ])
