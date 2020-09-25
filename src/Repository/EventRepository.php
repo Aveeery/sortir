@@ -48,10 +48,38 @@ class EventRepository extends ServiceEntityRepository
 //    Filtre l'affichage des events avec l'incrémentation d'une requête SQL en fonction des critères séléctionnés par l'utilisateur
     public function filterEvents($criteria, $userId)
     {
-
         $qb = $this->createQueryBuilder('e')
-            ->select('e');
+            ->select('e')
+            ->addSelect('u')
+            ->join('e.attendees', 'u');
 
+        if ($criteria['organizer']) {
+            $qb
+                ->addSelect('user')
+                ->join('e.organizer', 'user')
+                ->orWhere('user.id = :userId')
+                ->setParameter('userId', $userId);
+        }
+
+        if ($criteria['registered']) {
+            $qb
+                ->orWhere('u.id = :userId')
+                ->setParameter('userId', $userId);
+        }
+
+        if ($criteria['notRegistered']) {
+            $qb
+                ->orWhere('u.id != :userId')
+                ->setParameter('userId', $userId);
+        }
+
+        if ($criteria['over']) {
+            $qb
+                ->addSelect('s')
+                ->join('e.status', 's')
+                ->orWhere('s.label = :label')
+                ->setParameter('label', 'Fermée');
+        }
 
         if (strlen($criteria['name']) > 0) {
             $qb->andWhere('e.name = :name')
@@ -66,30 +94,6 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('campusName', $criteria['campus']);
         }
 
-        if ($criteria['organizer']) {
-            $qb
-                ->addSelect('u')
-                ->join('e.organizer', 'u')
-                ->andWhere('u.id = :userId')
-                ->setParameter('userId', $userId);
-        }
-
-        if ($criteria['registered']) {
-            $qb
-                ->addSelect('us')
-                ->join('e.attendees', 'us')
-                ->andWhere('us.id = :userId')
-                ->setParameter('userId', $userId);
-        }
-
-        if ($criteria['notRegistered']) {
-            $qb
-                ->addSelect('use')
-                ->join('e.attendees', 'use')
-                ->andWhere('use.id != :userId')
-                ->setParameter('userId', $userId);
-        }
-
         if ($criteria['firstDate']) {
             $qb
                 ->andWhere('e.startDate > :firstDate')
@@ -101,16 +105,6 @@ class EventRepository extends ServiceEntityRepository
                 ->andWhere('e.startDate < :secondDate')
                 ->setParameter('secondDate', $criteria['secondDate']);
         }
-
-
-        if ($criteria['over']) {
-            $qb
-                ->addSelect('s')
-                ->join('e.status', 's')
-                ->andWhere('s.label = :label')
-                ->setParameter('label', 'Fermée');
-        }
-
 
         $query = $qb->getQuery();
         return $query->getResult();

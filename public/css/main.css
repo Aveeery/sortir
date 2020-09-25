@@ -1,0 +1,9 @@
+body {
+  background-color: #748F96; }
+  body h1 {
+    color: #FDA29D; }
+  @media (min-width: 1200px) {
+    body {
+      background-color: #FDA29D; } }
+
+/*# sourceMappingURL=main.css.map */
