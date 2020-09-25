@@ -4,7 +4,7 @@
         <th>Nom</th>
         <th>Date</th>
         <th>Clôture</th>
-        <th>Inscrits / Places</th>
+        <th>Max d'inscrits</th>
         <th>Etat</th>
         <th>Inscrit ?</th>
         <th>Organisateur</th>
@@ -16,7 +16,7 @@
         <td>{{ event.name }}</td>
         <td>{{ event.startDate | date("d/m/Y") }}</td>
         <td>{{ event.closingDate | date("d/m/Y") }}</td>
-        <td>{{ event.attendees | length }}/{{ event.maxAttendees }}</td>
+        <td>{{ event.maxAttendees }}</td>
         <td>{{ event.status.label }}</td>
         <td>
             {% set idAttendee = " " %}
