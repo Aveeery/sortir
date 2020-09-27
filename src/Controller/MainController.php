@@ -22,6 +22,7 @@ class MainController extends AbstractController
     {
 
         $eventRepo = $this->getDoctrine()->getRepository(Event::class);
+
         $events = $eventRepo->findAll();
 
         $userId = $this->getUser()->getId();
@@ -31,11 +32,13 @@ class MainController extends AbstractController
         //Quand le formulaire en page d'accueil est soumis, on insère tous les filtres(criteria) dans un tableau pour effectuer une requête spécifique
         if ($filterForm->handleRequest($request)->isSubmitted()) {
 
-        //Grâce aux critères de recherche récupérés (getCriteria, on peut modifier trier les events)
-        $events = $eventRepo->filterEvents(
-            $this->getCriteria($request, $filterForm),
-            $userId);
+            //Grâce aux critères de recherche récupérés (getCriteria, on peut modifier trier les events)
+            $events = $eventRepo->filterEvents(
+                $this->getCriteria($request, $filterForm),
+                $userId);
         }
+
+
 
         return $this->render('main/home.html.twig', [
             "filterForm" => $filterForm->createView(), 'events' => $events

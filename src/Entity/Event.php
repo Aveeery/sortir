@@ -236,6 +236,11 @@ class Event
         return $this->attendees;
     }
 
+    public function getNbAttendees(): int
+    {
+        return sizeof($this->getAttendees());
+    }
+
     public function addAttendee(User $attendee): self
     {
         if (!$this->attendees->contains($attendee)) {
