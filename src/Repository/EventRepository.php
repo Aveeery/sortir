@@ -36,7 +36,8 @@ class EventRepository extends ServiceEntityRepository
     }
     */
 
-    public function findAll() {
+    public function findAll()
+    {
         return $this->createQueryBuilder('e')
             ->select('e', 'u', 's')
             ->join('e.status', 's')
@@ -44,6 +45,7 @@ class EventRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
 
 //    Filtre l'affichage des events avec l'incrémentation d'une requête SQL en fonction des critères séléctionnés par l'utilisateur
     public function filterEvents($criteria, $userId)
@@ -61,17 +63,6 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('userId', $userId);
         }
 
-        if ($criteria['registered']) {
-            $qb
-                ->orWhere('u.id = :userId')
-                ->setParameter('userId', $userId);
-        }
-
-        if ($criteria['notRegistered']) {
-            $qb
-                ->orWhere('u.id != :userId')
-                ->setParameter('userId', $userId);
-        }
 
         if ($criteria['over']) {
             $qb
@@ -107,9 +98,36 @@ class EventRepository extends ServiceEntityRepository
         }
 
         $query = $qb->getQuery();
-        return $query->getResult();
-    }
+        $events = $query->getResult();
 
+        //Si le filtre "Je ne suis pas inscrit" est activé, on boucle sur chaque participant de chaque event, si l'utilisateur est à l'intérieur, on sort l'evenement en question du tableau $event
+        if ($criteria['registered']) {
+            $events = array_filter($events, function (Event $event) use ($userId) {
+                $attendees = $event->getAttendees();
+                foreach ($attendees as $attendee) {
+                    if ($attendee->getId() == $userId) {
+                        return true;
+                    }
+                }
+                return false;
+            });
+        }
+
+        //Si le filtre "Je ne suis pas inscrit" est activé, on boucle sur chaque participant de chaque event, si l'utilisateur est à l'intérieur, on sort l'evenement en question du tableau $event
+        if ($criteria['notRegistered']) {
+            $events = array_filter($events, function (Event $event) use ($userId) {
+                $attendees = $event->getAttendees();
+                foreach ($attendees as $attendee) {
+                    if ($attendee->getId() == $userId) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+        }
+
+        return $events;
+    }
 
     /*
     public function findOneBySomeField($value): ?Event
