@@ -9,7 +9,9 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: lazy
+            anonymous: true
+            access_denied_handler: App\Security\AccessDeniedHandler
+            form_login: true
             provider: users
             guard:
                 authenticators:
@@ -32,9 +34,11 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-         - { path: ^/, roles: IS_AUTHENTICATED_FULLY}
+         - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
          - { path: ^/profile, roles: ROLE_USER }
+
 
 
     encoders:
