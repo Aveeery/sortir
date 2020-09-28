@@ -1,0 +1,79 @@
+.eventItem{
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+
+  &__header{
+    padding: 20px;
+    border-bottom: 1px solid $brand-dark;
+  }
+
+  &__body{
+    padding: 20px;
+    flex-grow: 1;
+  }
+
+  &__action{
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    padding: 5px 60px 15px 15px;
+
+    .btn{
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+  }
+
+  &__title{
+    padding-right: 70px;
+    margin: 0;
+  }
+
+  &__organizer{
+    @extend .font-italic;
+    margin: 0;
+  }
+
+  &__registerAndStatus{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    text-align: right;
+  }
+
+  &__date{
+    color: red;
+    margin-top: 0;
+  }
+
+  &__closingDate{
+    @extend .font-bold;
+  }
+
+  & p{
+    margin: 4px;
+  }
+
+  &__nbAttendees{
+    text-align: right;
+    line-height: 1.1;
+    padding: 25px 10px 5px 0;
+    position: absolute;
+    font-size: 14px;
+    bottom: 0;
+    right: 0;
+    background-color: $brand-secondary;
+    color: $brand-light;
+    width: 74px;
+    height: 64px;
+    border-radius: 100px 0 0 0;
+
+    p{
+      margin: 0;
+    }
+  }
+}

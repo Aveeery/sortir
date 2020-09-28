@@ -1,0 +1,14 @@
+.btn {
+  text-decoration: none;
+  background-color: $brand-primary;
+  padding: 8px 15px;
+  border-radius: 10px;
+  color: $brand-text;
+  transition: all 0.3s ease;
+  display: inline-block;
+
+  &:hover{
+    background-color: $brand-dark;
+    color: $brand-light;
+  }
+}

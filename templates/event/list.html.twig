@@ -1,76 +1,77 @@
-<table>
-    <thead>
-    <tr>
-        <th>Nom</th>
-        <th>Date</th>
-        <th>Clôture</th>
-        <th>Max d'inscrits</th>
-        <th>Etat</th>
-        <th>Inscrit ?</th>
-        <th>Organisateur</th>
-        <th>Action</th>
-    </tr>
-    </thead>
+<div class="eventListing">
     {% for event in events %}
-    <tr>
-        <td>{{ event.name }}</td>
-        <td>{{ event.startDate | date("d/m/Y") }}</td>
-        <td>{{ event.closingDate | date("d/m/Y") }}</td>
-        <td>{{ event.nbAttendees }}/{{ event.maxAttendees }}</td>
-        <td>
-            {% if  event.status.label  ==  'Creating' %}
-                En création
-            {% endif %}
-            {% if  event.status.label  ==  'Opened' %}
-                Ouverte
-            {% endif %}
-            {% if  event.status.label  ==  'Closed' %}
-                Fermée
-            {% endif %}
-            {% if  event.status.label  ==  'Running' %}
-                En cours
-            {% endif %}
-            {% if  event.status.label  ==  'Over' %}
-                Terminée
-            {% endif %}
-            {% if  event.status.label  ==  'Cancelled' %}
-                Annulée
-            {% endif %}
-        <td>
-            {% set idAttendee = " " %}
-            {% for attendee in event.attendees %}
-                {% if  attendee.id  ==  app.user.id %}
-                    X
-                    {% set idAttendee = attendee.id %}
+        {% if event.status.label != 'Archived' %}
+        <div class="eventItem">
+            <div class="eventItem__header">
+                <h2 class="eventItem__title">{{ event.name }}</h2>
+                <p class="eventItem__organizer">organisé par <a href="{{ path('profile', {'id': event.organizer.id}) }}">{{ event.organizer.username }}</a></p>
+                <div class="eventItem__registerAndStatus">
+                    {% if  event.status.label  ==  'Creating' %}
+                        <p>En création</p>
+                    {% endif %}
+                    {% if  event.status.label  ==  'Opened' %}
+                        <p>Ouverte</p>
+                    {% endif %}
+                    {% if  event.status.label  ==  'Closed' %}
+                        <p>Fermée</p>
+                    {% endif %}
+                    {% if  event.status.label  ==  'Running' %}
+                        <p>En cours</p>
+                    {% endif %}
+                    {% if  event.status.label  ==  'Over' %}
+                        <p>Terminée</p>
+                    {% endif %}
+                    {% if  event.status.label  ==  'Cancelled' %}
+                        <p>Annulée</p>
+                    {% endif %}
+
+                    {% set idAttendee = " " %}
+                    {% for attendee in event.attendees %}
+                        {% if  attendee.id  ==  app.user.id %}
+                            <p>Inscrit ✅</p>
+                            {% set idAttendee = attendee.id %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="eventItem__body">
+                <p class="eventItem__date">Débute le {{ event.startDate | date("d/m/Y") }} à {{ event.startDate | date("h:i") }}</p>
+
+                <p class="eventItem__closingDate">Inscription avant le {{ event.closingDate | date("d/m/Y") }}</p>
+                <div class="eventItem__nbAttendees">
+                    <p>Places</p>
+                    <p>{{ event.nbAttendees }} / {{ event.maxAttendees }} </p>
+                </div>
+
+            </div>
+
+            <div class="eventItem__action">
+                {# On affiche des liens en fonction de l'état de la sortie et de la situation de l'utilisateur par rapport à chaque sortie #}
+
+                {% if event.status.label != 'Creating' %}
+                    <a class="btn btn--primary" href="{{ path('event_detail', {'id': event.id}) }}">Afficher</a>
                 {% endif %}
-            {% endfor %}
 
-            {# On affiche des liens en fonction de l'état de la sortie et de la situation de l'utilisateur par rapport à chaque sortie #}
-        </td>
-        <td><a href="{{ path('profile', {'id': event.organizer.id}) }}">{{ event.organizer.username }}</a></td>
-        <td>
-            {% if event.status.label != 'Creating' %}
-                <a href="{{ path('event_detail', {'id': event.id}) }}">Afficher</a>
-            {% endif %}
-
-            {% if event.status.label == 'Opened' and idAttendee != app.user.id %}
-                <a href="{{ path('signup', {id: event.id }) }}">S'inscrire</a>
-            {% endif %}
-
-            {% if event.status.label == 'Opened' or event.status.label == 'Closed' and idAttendee == app.user.id %}
-                <a href="{{ path('signout', {id: event.id }) }}">Se désister</a>
-            {% endif %}
-
-            {% if event.organizer.id == app.user.id %}
-                {% if event.status.label == 'Opened' %}
-                    <a href="{{ path('remove', {id: event.id }) }}">Annuler</a>
+                {% if event.status.label == 'Opened' and idAttendee != app.user.id %}
+                    <a class="btn btn--primary" href="{{ path('signup', {id: event.id }) }}">S'inscrire</a>
                 {% endif %}
-                {% if event.status.label == 'Creating' %}
-                    <a href="">Modifier</a>
-                    <a href="{{ path('publish', {id: event.id }) }}">Publier</a>
+
+                {% if event.status.label == 'Opened' and idAttendee == app.user.id or event.status.label == 'Closed' and idAttendee == app.user.id %}
+                    <a class="btn btn--primary" href="{{ path('signout', {id: event.id }) }}">Se désister</a>
                 {% endif %}
-            {% endif %}
-        </td>
-    </tr>
+
+                {% if event.organizer.id == app.user.id %}
+                    {% if event.status.label == 'Opened' %}
+                        <a class="btn btn--danger" href="{{ path('remove', {id: event.id }) }}">Annuler</a>
+                    {% endif %}
+                    {% if event.status.label == 'Creating' %}
+                        <a class="btn btn--primary" href="">Modifier</a>
+                        <a class="btn btn--primary" href="{{ path('publish', {id: event.id }) }}">Publier</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
     {% endfor %}
-</table>
+</div>
