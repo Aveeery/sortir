@@ -37,6 +37,8 @@
         {{ form_widget(formview) }}
         <button type="submit">Ajouter</button>
         {{ form_end(formview) }}
+
+        <a href="{{ path('user_admin_create_user') }}">Ajouter un utilisateur</a>
     </div>
 
 {% endblock %}
