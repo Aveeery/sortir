@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Event;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,9 +23,18 @@ class FilterEventType extends AbstractType
             ->add('name',TextType::class, ['required' => false])
             ->add('firstDate', DateType::class, [ 'required' => false, 'widget' => 'single_text'])
             ->add('secondDate', DateType::class, [ 'required' => false, 'widget' => 'single_text'])
+            ->add('registeredOrNot', ChoiceType::class, ['choices' => [
+                'Sorties auxquelles je suis inscrit' => 'registered',
+                'Sorties auxquelles je ne suis pas inscrit' => 'notRegistered'
+            ],
+                'multiple' => false,
+                'mapped' => false,
+                'required' => false,
+                'expanded' => true,
+                'placeholder' => false,
+                'label' => false
+            ])
             ->add('organizer', CheckBoxType::class,  ['label' => 'J\'organise', 'mapped' => false, 'required' => false])
-            ->add('registered', CheckboxType::class,  ['label' => 'Je suis inscrit', 'mapped' => false, 'required' => false])
-            ->add('notRegistered', CheckboxType::class,  ['label' => 'Je ne suis pas inscrit', 'mapped' => false,'required' => false])
             ->add('over', CheckboxType::class,  ['label' => 'Sorties terminées', 'mapped' => false, 'required' => false])
             ->add('search', SubmitType::class,  ['label' => 'Rechercher'])
         ->setMapped(false);

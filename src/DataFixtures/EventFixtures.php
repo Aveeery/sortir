@@ -41,7 +41,7 @@ class EventFixtures extends Fixture
         }
 
 
-        $statuses = ['En création', 'Ouverte', 'Fermée', 'En cours'];
+        $statuses = ['Creating', 'Opened', 'Closed', 'Running', 'Over', 'Cancelled', 'Archived'];
         $statusObjects = [];
         for ($i=0; $i < sizeof($statuses); $i++)  {
             $status = new Status();
@@ -95,16 +95,17 @@ class EventFixtures extends Fixture
             $manager->flush();
         }
 
-
         for ($i = 0; $i < 20; $i++)
         {
             $rand = rand(1, 7);
             $event = new Event();
-            $event->setStartDate($faker->dateTime('2008-04-25 08:37:17', 'UTC'));
+            $event->setClosingDate($faker->dateTimeBetween('2020-09-18 08:37:17','2020-12-31 08:37:17','UTC'));
             $event->setName($faker->word);
             $event->setDescription($faker->text);
             $event->setPlace($faker->randomElement($places));
-            $event->setClosingDate($faker->dateTime('2008-04-25 08:37:17', 'UTC'));
+            $startDate = clone  $event->getClosingDate();
+            $startDate -> add(new \DateInterval('P2D'));
+            $event->setStartDate($startDate);
             $event->setDuration('5');
             $event->setStatus($faker->randomElement($statusObjects));
             $event->setMaxAttendees(rand(7, 15));

@@ -36,6 +36,19 @@ class StatusRepository extends ServiceEntityRepository
     }
     */
 
+    //La fonction retourne un tableau d'objets Status à l'index statusLabel
+    public function getAllStatus()
+    {
+        $statusArray = [];
+        $statuses = $this->findAll();
+
+        foreach ($statuses as $status){
+            $statusArray[$status->getLabel()] = $status;
+        }
+        return $statusArray;
+    }
+
+
     /*
     public function findOneBySomeField($value): ?Status
     {
