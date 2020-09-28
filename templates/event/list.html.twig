@@ -17,7 +17,25 @@
         <td>{{ event.startDate | date("d/m/Y") }}</td>
         <td>{{ event.closingDate | date("d/m/Y") }}</td>
         <td>{{ event.nbAttendees }}/{{ event.maxAttendees }}</td>
-        <td>{{ event.status.label }}</td>
+        <td>
+            {% if  event.status.label  ==  'Creating' %}
+                En création
+            {% endif %}
+            {% if  event.status.label  ==  'Opened' %}
+                Ouverte
+            {% endif %}
+            {% if  event.status.label  ==  'Closed' %}
+                Fermée
+            {% endif %}
+            {% if  event.status.label  ==  'Running' %}
+                En cours
+            {% endif %}
+            {% if  event.status.label  ==  'Over' %}
+                Terminée
+            {% endif %}
+            {% if  event.status.label  ==  'Cancelled' %}
+                Annulée
+            {% endif %}
         <td>
             {% set idAttendee = " " %}
             {% for attendee in event.attendees %}
@@ -31,7 +49,7 @@
         </td>
         <td><a href="{{ path('profile', {'id': event.organizer.id}) }}">{{ event.organizer.username }}</a></td>
         <td>
-            {% if event.status.label != 'En création' %}
+            {% if event.status.label != 'Creating' %}
                 <a href="{{ path('event_detail', {'id': event.id}) }}">Afficher</a>
             {% endif %}
 
@@ -44,10 +62,10 @@
             {% endif %}
 
             {% if event.organizer.id == app.user.id %}
-                {% if event.status.label == 'Ouverte' %}
+                {% if event.status.label == 'Opened' %}
                     <a href="{{ path('remove', {id: event.id }) }}">Annuler</a>
                 {% endif %}
-                {% if event.status.label == 'En création' %}
+                {% if event.status.label == 'Creating' %}
                     <a href="">Modifier</a>
                     <a href="{{ path('publish', {id: event.id }) }}">Publier</a>
                 {% endif %}
