@@ -11,6 +11,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Csv\Reader;
 use League\Csv\Statement;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,7 +35,8 @@ class UserAdminController extends AbstractController
     }
 
     /**
-     * @Route("/user/admin", name="user_admin")
+     *
+     * @Route("/admin", name="user_admin")
      */
     public function index(Request $request, EntityManagerInterface $em)
     {
@@ -99,7 +101,7 @@ class UserAdminController extends AbstractController
     }
 
     /**
-     * @Route("/user/admin/createnewuser", name="user_admin_create_user")
+     * @Route("/admin/createnewuser", name="user_admin_create_user")
      */
     public function createNewUser(Request $request, EntityManagerInterface $em)
     {

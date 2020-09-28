@@ -93,6 +93,21 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      */
     private $events;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+
+    private $roles = [];
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -199,9 +214,11 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
         return $this;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
-        return ['ROLE_USER'];
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
     }
 
     public function getSalt()
