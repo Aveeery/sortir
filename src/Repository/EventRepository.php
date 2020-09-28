@@ -63,13 +63,13 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('userId', $userId);
         }
 
-
+        //Si l'utilisateur séléctionne toutes les sorties terminées, on compare la date de l'evenement "startDate" avec la date du jour
         if ($criteria['over']) {
-            $qb
-                ->addSelect('s')
-                ->join('e.status', 's')
-                ->orWhere('s.label = :label')
-                ->setParameter('label', 'Fermée');
+                 $now = new \DateTime("now");
+                 $now->add(new \DateInterval('PT2H'));
+                 $qb
+                ->orWhere('e.startDate < :date')
+                ->setParameter('date', $now);
         }
 
         if (strlen($criteria['name']) > 0) {
@@ -113,7 +113,6 @@ class EventRepository extends ServiceEntityRepository
             });
         }
 
-        //Si le filtre "Je ne suis pas inscrit" est activé, on boucle sur chaque participant de chaque event, si l'utilisateur est à l'intérieur, on sort l'evenement en question du tableau $event
         if ($criteria['notRegistered']) {
             $events = array_filter($events, function (Event $event) use ($userId) {
                 $attendees = $event->getAttendees();
