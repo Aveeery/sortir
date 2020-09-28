@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Campus;
 use App\Entity\User;
 use App\Entity\UsersCsv;
+use App\Form\UserAdminType;
 use App\Form\UsersCsvType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,9 +14,12 @@ use League\Csv\Statement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserAdminController extends AbstractController
 {
+
+    private $encoder;
 
     /**
      * @var UserRepository
@@ -23,9 +27,10 @@ class UserAdminController extends AbstractController
 
     private $repository;
 
-    public function __construct(UserRepository $repository)
+    public function __construct(UserRepository $repository, UserPasswordEncoderInterface $encoder)
     {
         $this->repository = $repository;
+        $this->encoder = $encoder;
     }
 
     /**
@@ -91,5 +96,31 @@ class UserAdminController extends AbstractController
 
             $em->persist($user);
         }
+    }
+
+    /**
+     * @Route("/user/admin/createnewuser", name="user_admin_create_user")
+     */
+    public function createNewUser(Request $request, EntityManagerInterface $em)
+    {
+        $user = new User();
+
+        $newUserForm = $this->createForm(UserAdminType::class, $user);
+
+        $newUserForm->handleRequest($request);
+
+        if ($newUserForm->isSubmitted() && $newUserForm->isValid()) {
+
+
+            $user->setPassword($this->encoder->encodePassword($user, $newUserForm->getData()->getPassword()));
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Utilisateur ajouté');
+            return $this->redirectToRoute('user_admin');
+        }
+
+        $formview = $newUserForm->createView();
+        return $this->render('user_admin/createUser.html.twig', compact( 'formview'));
     }
 }
