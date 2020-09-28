@@ -36,9 +36,8 @@ class MainController extends AbstractController
             $events = $eventRepo->filterEvents(
                 $this->getCriteria($request, $filterForm),
                 $userId);
+
         }
-
-
 
         return $this->render('main/home.html.twig', [
             "filterForm" => $filterForm->createView(), 'events' => $events
