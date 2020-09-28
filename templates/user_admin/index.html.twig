@@ -1,0 +1,44 @@
+
+{% extends 'layout.html.twig' %}
+{% block title  %}Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+
+    <h1>Gestion des utilisateurs</h1>
+
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Phone number</th>
+                    <th>Mail</th>
+                    <th>Admin</th>
+                    <th>Active</th>
+                    <th>Campus Id</th>
+                </tr>
+            </thead>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.lastname }}</td>
+                    <td>{{ user.phoneNumber }}</td>
+                    <td>{{ user.mail }}</td>
+                    <td>{{ user.admin }}</td>
+                    <td>{{ user.active }}</td>
+                    <td>{{ user.campus.name }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {{ form_start(formview) }}
+        {{ form_widget(formview) }}
+        <button type="submit">Ajouter</button>
+        {{ form_end(formview) }}
+
+        <a href="{{ path('user_admin_create_user') }}">Ajouter un utilisateur</a>
+    </div>
+
+{% endblock %}

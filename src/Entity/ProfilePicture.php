@@ -18,6 +18,7 @@ class ProfilePicture implements \Serializable
      */
     private $id;
 
+
     private $file;
 
 
