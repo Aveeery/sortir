@@ -52,21 +52,25 @@ class EventController extends AbstractController
         $event->setOrganizer($user);
         $campus = $user->getCampus();
         $event->setCampus($campus);
-        $event->setStatus($this->stashOrPublishStatus($form));
+
+        //setStatus l'event
+        $this->stashOrPublishStatus($form, $event);
+
         $em->persist($event);
         $em->flush();
     }
 
-    public function stashOrPublishStatus($form)
+    public function stashOrPublishStatus($form, $event)
     {
-        $status = new Status();
+        $statusRepo = $this->getDoctrine()->getRepository(Status::class);
+        $status = $statusRepo->getAllStatus();
+
         if ($form->get('stashEvent')->isClicked()) {
-            $status->setLabel('En création');
+           $event->setStatus($status['En création']);
         }
         if ($form->get('publishEvent')->isClicked()) {
-            $status->setLabel('Ouverte');
+            $event->setStatus($status['Ouverte']);
         }
-        return $status;
     }
 
     /**
@@ -109,12 +113,19 @@ class EventController extends AbstractController
         $now = new \DateTime("now");
         $now->add(new \DateInterval('PT2H'));
 
-        if ($event->getClosingDate() < $now) {
+        $statusRepo = $this->getDoctrine()->getRepository(Status::class);
+        $status = $statusRepo->getAllStatus();
+
+        if ($event->getClosingDate() > $now and $event->getNbAttendees() < $event->getMaxAttendees()) {
             $event->addAttendee($userA);
+            if  ($event->getNbAttendees() == $event->getMaxAttendees()) {
+            $event->setStatus($status['Closed']);
+            }
+
             $em->flush();
             $this->addFlash('success', "Votre inscription a été prise en compte");
         } else {
-            $this->addFlash('error', "Vous ne pouvez pas vous inscrire, la date limite d'inscription est dépassée");
+            $this->addFlash('error', "Vous ne pouvez pas vous inscrire, la date limite d'inscription est dépassée ou le nombre total de participants a été atteint !");
         }
 
         $response = $this->forward('App\Controller\MainController::home');

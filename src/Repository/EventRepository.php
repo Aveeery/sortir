@@ -59,7 +59,7 @@ class EventRepository extends ServiceEntityRepository
             $qb
                 ->addSelect('user')
                 ->join('e.organizer', 'user')
-                ->orWhere('user.id = :userId')
+                ->andWhere('user.id = :userId')
                 ->setParameter('userId', $userId);
         }
 
@@ -68,7 +68,7 @@ class EventRepository extends ServiceEntityRepository
                  $now = new \DateTime("now");
                  $now->add(new \DateInterval('PT2H'));
                  $qb
-                ->orWhere('e.startDate < :date')
+                ->andWhere('e.startDate < :date')
                 ->setParameter('date', $now);
         }
 
@@ -101,7 +101,7 @@ class EventRepository extends ServiceEntityRepository
         $events = $query->getResult();
 
         //Si le filtre "Je ne suis pas inscrit" est activé, on boucle sur chaque participant de chaque event, si l'utilisateur est à l'intérieur, on sort l'evenement en question du tableau $event
-        if ($criteria['registered']) {
+        if ($criteria['registeredOrNot'] == 'registered') {
             $events = array_filter($events, function (Event $event) use ($userId) {
                 $attendees = $event->getAttendees();
                 foreach ($attendees as $attendee) {
@@ -113,7 +113,7 @@ class EventRepository extends ServiceEntityRepository
             });
         }
 
-        if ($criteria['notRegistered']) {
+        if ($criteria['registeredOrNot'] == 'notRegistered') {
             $events = array_filter($events, function (Event $event) use ($userId) {
                 $attendees = $event->getAttendees();
                 foreach ($attendees as $attendee) {

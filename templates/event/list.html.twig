@@ -35,11 +35,11 @@
                 <a href="{{ path('event_detail', {'id': event.id}) }}">Afficher</a>
             {% endif %}
 
-            {% if event.status.label == 'Ouverte' and idAttendee != app.user.id %}
+            {% if event.status.label == 'Opened' and idAttendee != app.user.id %}
                 <a href="{{ path('signup', {id: event.id }) }}">S'inscrire</a>
             {% endif %}
 
-            {% if event.status.label == 'Ouverte' and idAttendee == app.user.id %}
+            {% if event.status.label == 'Opened' or event.status.label == 'Closed' and idAttendee == app.user.id %}
                 <a href="{{ path('signout', {id: event.id }) }}">Se désister</a>
             {% endif %}
 
