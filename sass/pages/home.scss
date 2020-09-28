@@ -2,7 +2,8 @@ body{
   background-color:$brand-primary;
 
   h1{
-    color: $brand-secondary;}
+    color: $brand-secondary;
+  }
 
 
   @include desktop{

@@ -1,7 +1,8 @@
 body {
   background-color: #748F96; }
   body h1 {
-    color: #FDA29D; }
+    color: #FDA29D;
+    background-color: #5eb5e0; }
   @media (min-width: 1200px) {
     body {
       background-color: #FDA29D; } }
