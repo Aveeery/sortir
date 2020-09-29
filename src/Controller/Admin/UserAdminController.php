@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 use App\Entity\Campus;
 use App\Entity\User;
 use App\Entity\UsersCsv;
-use App\Form\DeactivateUserType;
 use App\Form\UserAdminType;
 use App\Form\UsersCsvType;
 use App\Repository\UserRepository;
@@ -173,25 +172,17 @@ class UserAdminController extends AbstractController
     public function deactivateUsers(Request $request, User $user)
     {
 
-        $user->setActive(false);
+        if($user->getActive())
+        {
+            $user->setActive(false);
+        }
+        else
+        {
+            $user->setActive(true);
+        }
 
         $this->em->flush();
         $this->addFlash('success', 'Utilisateur désactivé');
-
-
-        return $this->redirectToRoute('user_admin');
-    }
-
-    /**
-     * @Route("/admin/reactivate/{id}", requirements={"id":"\d+"}, name="admin_reactivate_user", methods="POST")
-     */
-    public function reactivateUsers(Request $request, User $user)
-    {
-
-        $user->setActive(true);
-
-        $this->em->flush();
-        $this->addFlash('success', 'Utilisateur réactivé');
 
 
         return $this->redirectToRoute('user_admin');
