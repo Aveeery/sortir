@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Campus;
 use App\Entity\User;
 use App\Entity\UsersCsv;
+use App\Form\DeactivateUserType;
 use App\Form\UserAdminType;
 use App\Form\UsersCsvType;
 use App\Repository\UserRepository;
@@ -14,6 +15,7 @@ use League\Csv\Statement;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -28,10 +30,16 @@ class UserAdminController extends AbstractController
 
     private $repository;
 
-    public function __construct(UserRepository $repository, UserPasswordEncoderInterface $encoder)
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    public function __construct(UserRepository $repository, UserPasswordEncoderInterface $encoder, EntityManagerInterface $em)
     {
         $this->repository = $repository;
         $this->encoder = $encoder;
+        $this->em = $em;
     }
 
     /**
@@ -45,6 +53,7 @@ class UserAdminController extends AbstractController
         $csv = new UsersCsv();
 
         $csvForm = $this->createForm(UsersCsvType::class, $csv);
+        //$deactivateForm = $this->createForm(DeactivateUserType::class);
 
         $csvForm->handleRequest($request);
 
@@ -54,16 +63,34 @@ class UserAdminController extends AbstractController
             $fileName = md5(uniqid()).'.csv';
             $csv->setName($fileName);
             $file->move($this->getParameter('csv_dir'), $fileName);
-            $this->processCsv($fileName, $em);
+            $csvformat = ['username', 'firstname', 'lastname', 'phone_number', 'mail', 'campus'];
+            $file_path = $this->getParameter('kernel.project_dir').'/public/userCsvs/'.$fileName;
 
-            $em->persist($csv);
+            if(($handle = fopen($file_path, 'r')) !== false) {
+                if (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                    for ($i = 0; $i < count($csvformat); $i++)
+                    {
+                        if(strcmp($data[$i], $csvformat[$i]) != 0)
+                        {
+                            $this->addFlash('error', "La structure du fichier n'est pas la bonne");
+                            return $this->redirectToRoute('user_admin');
+                        }
+                    }
+                }
+            }
+
+            $this->processCsv($fileName, $em);
+            unlink($file_path);
+
+            //$em->persist($csv);
             $em->flush();
-            $this->addFlash('success', 'Fichier ajouté');
+            $this->addFlash('success', 'Les utilisateurs ont été ajoutés en base de donnée');
 
             return $this->redirectToRoute('user_admin');
         }
 
         $formview = $csvForm->createView();
+        //$deactivateFormView = $deactivateForm->createView();
         return $this->render('user_admin/index.html.twig', compact('users', 'formview'));
     }
 
@@ -124,5 +151,49 @@ class UserAdminController extends AbstractController
 
         $formview = $newUserForm->createView();
         return $this->render('user_admin/createUser.html.twig', compact( 'formview'));
+    }
+
+    /**
+     * @Route("/admin/deleteusers/{id}", requirements={"id":"\d+"}, name="admin_delete_user", methods="DELETE")
+     */
+    public function deleteUsers(Request $request, User $user)
+    {
+
+        $this->em->remove($user);
+        $this->em->flush();
+        $this->addFlash('success', 'Utilisateur supprimé avec succès');
+
+
+        return $this->redirectToRoute('user_admin');
+    }
+
+    /**
+     * @Route("/admin/deactivate/{id}", requirements={"id":"\d+"}, name="admin_deactivate_user", methods="POST")
+     */
+    public function deactivateUsers(Request $request, User $user)
+    {
+
+        $user->setActive(false);
+
+        $this->em->flush();
+        $this->addFlash('success', 'Utilisateur désactivé');
+
+
+        return $this->redirectToRoute('user_admin');
+    }
+
+    /**
+     * @Route("/admin/reactivate/{id}", requirements={"id":"\d+"}, name="admin_reactivate_user", methods="POST")
+     */
+    public function reactivateUsers(Request $request, User $user)
+    {
+
+        $user->setActive(true);
+
+        $this->em->flush();
+        $this->addFlash('success', 'Utilisateur réactivé');
+
+
+        return $this->redirectToRoute('user_admin');
     }
 }
