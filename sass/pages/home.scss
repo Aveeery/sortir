@@ -1,1 +1,7 @@
+.eventsContainer{
+
+  @include tablet{
+    display: flex;
+  }
+}
 
