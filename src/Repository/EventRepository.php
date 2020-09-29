@@ -53,7 +53,8 @@ class EventRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('e')
             ->select('e')
             ->addSelect('u')
-            ->join('e.attendees', 'u');
+            ->join('e.attendees', 'u')
+            ->addSelect('count(u.attendees)', 'NbAtt');
 
         if ($criteria['organizer']) {
             $qb

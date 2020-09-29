@@ -47,4 +47,15 @@ class CampusRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getAllCampuses()
+    {
+        $campusArray = [];
+        $campuses = $this->findAll();
+
+        foreach ($campuses as $campus){
+            $statusArray[$campus->getName()] = $campus;
+        }
+        return $statusArray;
+    }
 }
