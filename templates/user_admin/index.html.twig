@@ -30,6 +30,9 @@
                     <td>{{ user.admin }}</td>
                     <td>{{ user.active }}</td>
                     <td>{{ user.campus.name }}</td>
+                    <td>
+                        {{ form_widget(deactivateFormView) }}
+                    </td>
                 </tr>
             {% endfor %}
         </table>
