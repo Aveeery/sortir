@@ -5,7 +5,9 @@
 {% block body %}
 
    {% if user.profilePicture.name is defined %}
+      <div class="profile-picture">
    <img src="{{asset ('profilePictures/')~user.profilePicture.name }}">
+      </div>
    {% endif %}
 
    <h1>{{ user.username }}</h1>
@@ -17,6 +19,7 @@
    <p>Email : {{ user.mail }}</p>
    <p>Campus : {{ user.campus.name }}
 
-   <a href="{{ path('home')}}">Retour</a>
+
+   <button class="btn"><a href="{{ path('update_profile')}}">Modifier mon profil</a></button>
 
 {% endblock %}

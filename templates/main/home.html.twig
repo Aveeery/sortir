@@ -2,13 +2,14 @@
 
 {% block body %}
 
+    <section class="eventsContainer">
+
     <div class="filterForm">
     {{ form(filterForm) }}
     </div>
 
     {% include 'event/list.html.twig' %}
 
-    {% for message in app.flashes('success') %}
-        <div>{{ message }}</div>
-    {% endfor %}
+    </section>
+
 {% endblock %}
