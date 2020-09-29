@@ -1,0 +1,29 @@
+.loginForm{
+  width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+  h1{
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  label{
+    margin-bottom: 7px;
+  }
+
+  input{
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid $brand-dark;
+    border-radius: 4px;
+  }
+}
