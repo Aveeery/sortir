@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 use App\Entity\Campus;
 use App\Entity\User;
 use App\Entity\UsersCsv;
-use App\Form\DeactivateUserType;
 use App\Form\UserAdminType;
 use App\Form\UsersCsvType;
 use App\Repository\UserRepository;

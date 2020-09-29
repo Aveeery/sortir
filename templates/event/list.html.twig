@@ -61,7 +61,7 @@
                         <a class="btn btn--primary" href="{{ path('signout', {id: event.id }) }}">Se désister</a>
                     {% endif %}
 
-                    {% if event.organizer.id == app.user.id %}
+                    {% if event.organizer.id == app.user.id or is_granted('ROLE_ADMIN') %}
                         {% if event.status.label == 'Opened' %}
                             <a class="btn btn--danger" href="{{ path('remove', {id: event.id }) }}">Annuler</a>
                         {% endif %}
