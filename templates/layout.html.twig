@@ -11,9 +11,7 @@
     {% block header %}
         <header>{% include ('nav.html.twig') %}</header>
     {% endblock %}
-<?php
-header('Access-Control-Allow-Origin: *');
-?>
+
     <body>
         {% for messages in app.flashes(['success', 'error']) %}
             <div class="alert">
@@ -22,9 +20,11 @@ header('Access-Control-Allow-Origin: *');
                 {% endfor %}
             </div>
         {% endfor %}
+        <section class="eventsContainer">
         {% block body %}
 
         {% endblock %}
+        </section>
         {% block javascripts %}
             <script
                     src="https://code.jquery.com/jquery-3.5.1.min.js"
