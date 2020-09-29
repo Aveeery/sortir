@@ -173,25 +173,17 @@ class UserAdminController extends AbstractController
     public function deactivateUsers(Request $request, User $user)
     {
 
-        $user->setActive(false);
+        if($user->getActive())
+        {
+            $user->setActive(false);
+        }
+        else
+        {
+            $user->setActive(true);
+        }
 
         $this->em->flush();
         $this->addFlash('success', 'Utilisateur désactivé');
-
-
-        return $this->redirectToRoute('user_admin');
-    }
-
-    /**
-     * @Route("/admin/reactivate/{id}", requirements={"id":"\d+"}, name="admin_reactivate_user", methods="POST")
-     */
-    public function reactivateUsers(Request $request, User $user)
-    {
-
-        $user->setActive(true);
-
-        $this->em->flush();
-        $this->addFlash('success', 'Utilisateur réactivé');
 
 
         return $this->redirectToRoute('user_admin');
