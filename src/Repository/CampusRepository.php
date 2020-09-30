@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Campus;
+use App\Entity\CampusSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,34 +22,28 @@ class CampusRepository extends ServiceEntityRepository
         parent::__construct($registry, Campus::class);
     }
 
-    // /**
-    //  * @return Campus[] Returns an array of Campus objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    /**
+     * @param $search
+     * @return Query
+     */
+   public function findCampusByName(CampusSearch $search)
+   {
+       $query = $this->findAllCampuses();
 
-    /*
-    public function findOneBySomeField($value): ?Campus
+       if($search->getName())
+       {
+           $query = $query
+               ->andWhere('p.name LIKE :val')
+               ->setParameter('val', '%'.$search->getName().'%');
+       }
+       return $query->getQuery()
+           ->getResult();
+   }
+
+    public function findAllCampuses(): QueryBuilder
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->createQueryBuilder('p');
     }
-    */
 
     public function getAllCampuses()
     {
