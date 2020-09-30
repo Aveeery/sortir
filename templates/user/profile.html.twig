@@ -4,22 +4,27 @@
 
 {% block body %}
 
-   {% if user.profilePicture.name is defined %}
-      <div class="profile-picture">
-   <img src="{{asset ('profilePictures/')~user.profilePicture.name }}">
-      </div>
-   {% endif %}
 
-   <h1>{{ user.username }}</h1>
-   <p>Prénom : {{ user.firstname }}</p>
-   <p>Nom : {{ user.lastname }}</p>
-   {% if user.phoneNumber %}
-   <p>Téléphone : {{ user.phoneNumber }}</p>
-   {% endif %}
-   <p>Email : {{ user.mail }}</p>
-   <p>Campus : {{ user.campus.name }}
+    <div class="userDetail">
+        <div class="profile-picture">
+            {% if user.profilePicture.name is defined %}
+                <img src="{{ asset ('profilePictures/')~user.profilePicture.name }}">
+            {% else %}
+                <img src="{{ asset ('profilePictures/defaultprofilepicture.svg') }}">
+            {% endif %}
+        </div>
 
+        <h1>{{ user.username }}</h1>
+        <p>Prénom : {{ user.firstname }}</p>
+        <p>Nom : {{ user.lastname }}</p>
+        {% if user.phoneNumber %}
+            <p>Téléphone : {{ user.phoneNumber }}</p>
+        {% endif %}
+        <p>Email : {{ user.mail }}</p>
+        <p>Campus : {{ user.campus.name }}
 
-   <button class="btn"><a href="{{ path('update_profile')}}">Modifier mon profil</a></button>
-
+        <div>
+            <a class="btn" href="{{ path('update_profile') }}">Modifier mon profil</a>
+        </div>
+    </div>
 {% endblock %}

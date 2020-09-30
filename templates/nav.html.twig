@@ -2,7 +2,7 @@
     <a class="navbar__logo" href="{{ path ('home') }}">Sortir</a>
     <ul class="navbar__list">
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <li><a href="{{ path ('app_logout') }}">Se déconnecter</a></li>
+            <li><a href="{{ path ('app_logout') }}"> Se déconnecter</a></li>
             <li><a href="{{ path ('create_event') }}">Créer une sortie</a></li>
             <li><a href="{{ path ('profile', {id: app.user.id }) }}">Mon profil</a></li>
         {% else %}

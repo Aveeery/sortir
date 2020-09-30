@@ -1,7 +1,37 @@
+.userDetail {
+  max-width: 300px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: solid 2px $brand-secondary-dark;
+  border-radius: 25px;
+  padding: 75px 0 20px;
+  position: relative;
+  margin-top: 100px;
+
+
+  h1 {
+    margin: 15px;
+
+  }
+
+  p {
+    margin: 0 0 20px 0;
+  }
+
+}
+
+
 .profile-picture {
   width: 150px;
-  height: 250px;
+  height: 150px;
   overflow: hidden;
+  border-radius: 50%;
+  position: absolute;
+  top: 0px;
+  transform: translateY(-50%);
+
 
   img {
     width: 100%;
