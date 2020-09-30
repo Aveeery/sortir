@@ -1,0 +1,41 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Gérer les campus{% endblock %}
+
+{% block body %}
+
+    {{ form_start(campusSearchForm) }}
+    {{ form_widget(campusSearchForm) }}
+    <button type="submit">Rechercher</button>
+    {{ form_end(campusSearchForm) }}
+
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            {% for campus in campuses %}
+                <tr>
+                    <td>{{ campus.name }}</td>
+                        <td>
+                            <form method="post" action="{{ path('admin_delete_campus', {id : campus.id }) }}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Ajouter</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
