@@ -28,8 +28,20 @@
                     <td>{{ user.lastname }}</td>
                     <td>{{ user.phoneNumber }}</td>
                     <td>{{ user.mail }}</td>
-                    <td>{{ user.admin }}</td>
-                    <td>{{ user.active }}</td>
+                    <td>
+                        {% for role in user.roles %}
+                            {% if role == "ROLE_ADMIN" %}
+                                <i class="far fa-user"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% if user.active %}
+                        <i class="fas fa-check"></i>
+                            {% else %}
+                                <i class="fas fa-times"></i>
+                        {% endif %}
+                    </td>
                     <td>{{ user.campus.name }}</td>
                     <td>
                         <form method="post" action="{{ path('admin_deactivate_user', {id :user.id }) }}">
@@ -49,12 +61,17 @@
                 </tr>
             {% endfor %}
         </table>
-        {{ form_start(formview) }}
-        {{ form_widget(formview) }}
-        <button type="submit">Ajouter</button>
-        {{ form_end(formview) }}
+        <div>
+            {{ form_start(formview) }}
+            {{ form_widget(formview) }}
+            <button type="submit">Ajouter</button>
+            {{ form_end(formview) }}
+        </div>
+        <div>
+            <a href="{{ path('user_admin_create_user') }}"><button><i class="fas fa-user-plus fa-lg"></i></button></a>
+        </div>
 
-        <a href="{{ path('user_admin_create_user') }}">Ajouter un utilisateur</a>
+
     </div>
 
 {% endblock %}
