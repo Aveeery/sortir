@@ -4,10 +4,42 @@
 
 {% block body %}
 
+    {{ form_start(citySearchForm) }}
+    {{ form_widget(citySearchForm) }}
+    <button type="submit">Rechercher</button>
+    {{ form_end(citySearchForm) }}
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Ajouter</button>
-    {{ form_end(form) }}
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>Ville</th>
+                <th>Code postal</th>
+            </tr>
+        </thead>
+
+        {% for city in cities %}
+            <tr>
+                <td>{{ city.name }}</td>
+                <td>{{ city.postCode }}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>
+                        <form method="post" action="{{ path('admin_delete_city', {id :city.id }) }}">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                {% endif %}
+
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+    <div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Ajouter</button>
+        {{ form_end(form) }}
+    </div>
 
 {% endblock %}

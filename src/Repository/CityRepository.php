@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\City;
+use App\Entity\CitySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,22 +21,31 @@ class CityRepository extends ServiceEntityRepository
         parent::__construct($registry, City::class);
     }
 
-    // /**
-    //  * @return City[] Returns an array of City objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param $search
+     * @return Query
+     */
+    public function findCityByName(CitySearch $search)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
+        $query = $this->findAllCities();
+
+            if ($search->getName())
+            {
+                $query = $query
+                ->andWhere('p.name LIKE :val')
+                ->setParameter('val', '%'.$search->getName().'%');
+            }
+
         ;
+        return $query->getQuery()
+            ->getResult();
     }
-    */
+
+    public function findAllCities(): \Doctrine\ORM\QueryBuilder
+    {
+        return $this->createQueryBuilder('p');
+    }
+
 
     /*
     public function findOneBySomeField($value): ?City
