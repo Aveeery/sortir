@@ -1,0 +1,57 @@
+.eventDetail {
+
+  &__eventName {
+    color: $brand-secondary;
+  }
+
+  &__colContainer {
+    margin: auto;
+    max-width: 900px;
+    padding: 40px;
+
+    @include tablet {
+      display: flex;
+
+
+      &__col1 {
+        width: 60%;
+        padding: 20px;
+      }
+
+      &__col2 {
+        width: 40%;
+        padding: 50px 20px;
+      }
+    }
+  }
+
+  &__attendees {
+    max-width: 300px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    &__title {
+      text-align: center;
+      padding: 5px;
+    }
+
+    td, th {
+      padding: 5px;
+      text-align: center;
+
+      a {
+        color: $brand-secondary;
+      }
+
+    }
+
+    table, td, th {
+      border: 1px solid $brand-dark;
+      border-collapse: collapse;
+
+
+    }
+  }
+}

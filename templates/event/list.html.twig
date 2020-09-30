@@ -25,27 +25,27 @@
                             <p>Terminée</p>
                         {% endif %}
                         {% if  event.status.label  ==  'Cancelled' %}
-                            <p>Annulée</p>
+                            <p>Annulée</i></p>
                         {% endif %}
 
                         {% set idAttendee = " " %}
                         {% for attendee in event.attendees %}
                             {% if  attendee.id  ==  app.user.id %}
-                                <p>Inscrit ✅</p>
+                                <p>Inscrit <i class="far fa-check-circle"></i></p>
                                 {% set idAttendee = attendee.id %}
                             {% endif %}
                         {% endfor %}
                     </div>
                 </div>
                 <div class="eventItem__body">
-                    <p class="eventItem__date">Débute le {{ event.startDate | date("d/m/Y") }}
+                    <p class="eventItem__date"><i class="far fa-calendar-alt"></i> {{ event.startDate | date("d/m/Y") }}
                         à {{ event.startDate | date("h:i") }}</p>
 
                     <p class="eventItem__closingDate">Inscription avant
                         le {{ event.closingDate | date("d/m/Y") }}</p>
                     <div class="eventItem__nbAttendees">
                         <p>Places</p>
-                        <p>{{ event.nbAttendees }} / {{ event.maxAttendees }} </p>
+                        <p><i class="fas fa-users"></i>  {{ event.nbAttendees }} / {{ event.maxAttendees }} </p>
                     </div>
 
                 </div>
