@@ -21,24 +21,11 @@
 
     @include tablet{
       width: calc(50% - 15px);
-      margin-right: 30px;
-
-      &:nth-child(2n){
-        margin-right: 0;
-      }
     }
 
     @include desktop{
       width: calc(33.3333% - 20px);
-      margin-right: 30px;
 
-      &:nth-child(2n){
-        margin-right: 30px;
-      }
-
-      &:nth-child(3n){
-        margin-right: 0;
-      }
     }
   }
 }

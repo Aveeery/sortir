@@ -1,0 +1,60 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 60px;
+  align-items: center;
+
+
+  &__logo {
+    text-decoration: none;
+    color: $brand-text;
+    font-size: 30px;
+    @extend .font-bold;
+    position: relative;
+    transition: all 0.3s ease;
+
+    &:after {
+      background-color: $brand-secondary;
+      content: " ";
+      height: 30%;
+      position: absolute;
+      left: 0;
+      margin-left: -1rem;
+      top: 65%;
+      width: calc(100% + 2.75rem);
+      z-index: -1;
+      transition: all 0.3s ease;
+    }
+
+    &:hover:after {
+      top: 0;
+      height: 100%;
+
+    }
+
+    &:hover {
+    color: $brand-light;
+    }
+
+  }
+
+  &__list {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+
+    a {
+      text-decoration: none;
+      color: $brand-text;
+      padding: 4px 20px;
+      margin: auto;
+      transition: background-size 0.4s ease;
+      background: linear-gradient(to bottom, transparent 75%, $brand-secondary 0) center center/0% 75% no-repeat;
+
+      &:hover {
+        background-size: 100% 100%;
+      }
+    }
+
+  }
+}

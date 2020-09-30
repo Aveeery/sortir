@@ -1,0 +1,19 @@
+#create_event {
+  max-width: 400px;
+  margin: auto;
+  box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.15);
+  border-radius : 10px;
+  padding: 40px;
+
+  label {
+    display: block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  button {
+    display:block;
+    margin: 20px auto 0;
+
+  }
+}

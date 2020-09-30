@@ -9,7 +9,7 @@
             var id = $("#event_city option:selected");
 
             // TODO modifier url
-            var url = $("#form_event").data('route');
+            var url = $("#create_event").data('route');
 
             $.ajax({
                 url: url,
