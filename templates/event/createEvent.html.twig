@@ -5,6 +5,7 @@
 {% block body %}
 
     <a href="{{ path('create_place') }}">Ajouter un lieu</a>
+    <a href="{{ path('create_city') }}">Ajouter une ville</a>
     {{ form_start(eventForm, {'attr' : {'id': 'form_event', 'data-route': path('show_places') }}) }}
     {{ form_widget(eventForm) }}
     {{ form_end(eventForm) }}

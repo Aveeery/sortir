@@ -90,7 +90,7 @@ class UserAdminController extends AbstractController
 
         $formview = $csvForm->createView();
         //$deactivateFormView = $deactivateForm->createView();
-        return $this->render('user_admin/index.html.twig', compact('users', 'formview'));
+        return $this->render('user_admin/createCity.html.twig', compact('users', 'formview'));
     }
 
     public function processCsv($fileName, $em)
