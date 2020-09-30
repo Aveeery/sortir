@@ -369,11 +369,11 @@ h1, h2, h3, h4 {
 .eventListing {
   display: flex;
   flex-flow: wrap;
-  justify-content: flex-start;
+  justify-content: space-around;
   width: 100%;
   max-width: 450px;
-  margin: auto;
   padding: 30px;
+  margin: auto;
 }
 @media (min-width: 768px) {
   .eventListing {
@@ -418,6 +418,7 @@ h1, h2, h3, h4 {
   position: relative;
   box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.15);
   overflow: hidden;
+  width: 320px;
 }
 .eventItem__header {
   padding: 20px;
@@ -491,6 +492,12 @@ h1, h2, h3, h4 {
   color: #ffffff;
 }
 
+input {
+  padding: 5px;
+  border: 1px solid #555555;
+  border-radius: 4px;
+}
+
 .loginForm {
   width: 300px;
   position: absolute;
@@ -513,9 +520,24 @@ h1, h2, h3, h4 {
 }
 .loginForm input {
   margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #555555;
-  border-radius: 4px;
+}
+
+#filter_event {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+#filter_event input {
+  margin: 5px;
+}
+
+.profile-picture {
+  width: 150px;
+  height: 250px;
+  overflow: hidden;
+}
+.profile-picture img {
+  width: 100%;
 }
 
 /*# sourceMappingURL=main.css.map */
