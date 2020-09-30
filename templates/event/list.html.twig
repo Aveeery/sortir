@@ -3,8 +3,11 @@
         {% if event.status.label != 'Archived' %}
             <div class="eventItem">
                 <div class="eventItem__header">
-                    <h2 class="eventItem__title">{{ event.name }}</h2>
-                    <p class="eventItem__organizer">organisé par <a href="{{ path('profile', {'id': event.organizer.id}) }}">{{ event.organizer.username }}</a></p>
+                    <h2 class="eventItem__title"><a
+                                href="{{ path('event_detail', {'id': event.id}) }}">{{ event.name }} </a></h2>
+                    <p class="eventItem__organizer">organisé par <a
+                                href="{{ path('profile', {'id': event.organizer.id}) }}">{{ event.organizer.username }}</a>
+                    </p>
                     <div class="eventItem__registerAndStatus">
                         {% if  event.status.label  ==  'Creating' %}
                             <p>En création</p>
@@ -34,11 +37,12 @@
                         {% endfor %}
                     </div>
                 </div>
-
                 <div class="eventItem__body">
-                    <p class="eventItem__date">Débute le {{ event.startDate | date("d/m/Y") }} à {{ event.startDate | date("h:i") }}</p>
+                    <p class="eventItem__date">Débute le {{ event.startDate | date("d/m/Y") }}
+                        à {{ event.startDate | date("h:i") }}</p>
 
-                    <p class="eventItem__closingDate">Inscription avant le {{ event.closingDate | date("d/m/Y") }}</p>
+                    <p class="eventItem__closingDate">Inscription avant
+                        le {{ event.closingDate | date("d/m/Y") }}</p>
                     <div class="eventItem__nbAttendees">
                         <p>Places</p>
                         <p>{{ event.nbAttendees }} / {{ event.maxAttendees }} </p>
@@ -72,6 +76,7 @@
                     {% endif %}
                 </div>
             </div>
+
         {% endif %}
     {% endfor %}
 </div>

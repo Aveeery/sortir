@@ -90,7 +90,7 @@ class MainController extends AbstractController
                 $event->setStatus($status['Running']);
            }
 
-            if ($event->getClosingDate() < $now  and $eventStartDate < $now) {
+            if ($event->getClosingDate() < $now  and $eventStartDate < $now and !$event->getStatus() instanceof $status['Over']) {
                 $event->setStatus($status['Closed']);
             }
 

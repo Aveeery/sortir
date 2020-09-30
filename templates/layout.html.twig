@@ -9,11 +9,14 @@
             <link rel="stylesheet" href=" {{ asset("css/css/all.css") }} ">
         {% endblock %}
     </head>
+
+
+
     {% block header %}
+    <body class="body">
         <header>{% include ('nav.html.twig') %}</header>
     {% endblock %}
 
-    <body>
         {% for messages in app.flashes(['success', 'error']) %}
             <div class="alert">
                 {% for message in messages %}
