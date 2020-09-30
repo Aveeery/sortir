@@ -30,39 +30,28 @@ class MainController extends AbstractController
         $userId = $this->getUser()->getId();
 
         //On update les status de tous les évènements à chaque chargement de la page d'accueil
-        $this->updateEventsStatus();
 
         $filterForm = $this->createForm(FilterEventType::class);
 
         //Quand le formulaire en page d'accueil est soumis, on insère tous les filtres(criteria) dans un tableau pour effectuer une requête spécifique
         if ($filterForm->handleRequest($request)->isSubmitted()) {
 
-            //Grâce aux critères de recherche récupérés (getCriteria, on peut modifier trier les events)
+            //Grâce aux critères de recherche récupérés (le getData du form) et l'id de session
             $events = $eventRepo->filterEvents(
-                $this->getCriteria($request, $filterForm),
+                $filterForm->getData(),
                 $userId);
-        }
 
+
+        }
         return $this->render('main/home.html.twig', [
             "filterForm" => $filterForm->createView(), 'events' => $events
         ]);
     }
 
-    //Range tous les critères de recherche d'events dans un tableau associatif
-    public function getCriteria($request, $form)
-    {
-        $criteria = [];
-        $fields = array_keys($form->all());
-
-        for ($i = 0; $i < sizeof($fields); $i++) {
-            $prop = $fields[$i];
-            $criteria[$prop] = $form->get($prop)->getData();
-        }
-        return $criteria;
-    }
-
-
 //Boucle sur tous les évènements de la base de données pour en mettre à jour le Status en fonction de la date du jour
+    /**
+     * @Route("/update_status", name="update_status")
+     */
     public function updateEventsStatus(){
 
         $eventRepo = $this->getDoctrine()->getRepository(Event::class);
@@ -103,5 +92,7 @@ class MainController extends AbstractController
                 $event->setStatus($status['Opened']);
             }
         }
+        $this->addFlash('success', 'Les statuts des sorties ont été mis à jour !');
+        return $this->redirectToRoute('home');
     }
 }

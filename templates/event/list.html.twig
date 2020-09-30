@@ -79,4 +79,7 @@
 
         {% endif %}
     {% endfor %}
+    {% if events | length < 1 %}
+        <p>Aucune sortie ne correspond aux critères séléctionnés !</p>
+    {% endif %}
 </div>

@@ -413,15 +413,15 @@ h1, h2, h3, h4 {
 .btn {
   text-decoration: none;
   border: none;
-  background-color: #CCCCCC;
+  background-color: #3FAE93;
   padding: 8px 15px;
   border-radius: 10px;
-  color: #555555;
+  color: #ffffff;
   transition: all 0.3s ease;
   display: inline-block;
   outline: none; }
   .btn:hover {
-    background-color: #555555;
+    background-color: #30856F;
     color: #ffffff; }
 
 input {
@@ -504,18 +504,51 @@ input {
       .navbar__list a:hover {
         background-size: 100% 100%; }
 
-#create_event {
-  max-width: 400px;
+.create_event {
   margin: auto;
-  box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-  padding: 40px; }
-  #create_event label {
-    display: block;
-    padding-top: 5px;
-    padding-bottom: 5px; }
-  #create_event button {
-    display: block;
-    margin: 20px auto 0; }
+  padding: 10px 20px; }
+  @media (min-width: 768px) {
+    .create_event {
+      padding: 80px; }
+      .create_event__colcontainer {
+        display: flex;
+        max-width: 600px;
+        margin: auto; }
+        .create_event__colcontainer__col1 label {
+          margin-top: 40px; }
+        .create_event__colcontainer__col1, .create_event__colcontainer__col2 {
+          width: 50%; }
+          .create_event__colcontainer__col1 select, .create_event__colcontainer__col2 select {
+            margin: 5px 0; } }
+  .create_event a {
+    color: #3FAE93; }
+  .create_event__description {
+    max-width: 600px;
+    margin: auto; }
+    .create_event__description textarea {
+      width: 100%;
+      min-height: 80px; }
+  .create_event__btngroup {
+    display: flex;
+    justify-content: center; }
+    .create_event__btngroup button {
+      margin: 30px 20px;
+      text-decoration: none;
+      border: none;
+      background-color: #3FAE93;
+      padding: 8px 15px;
+      border-radius: 10px;
+      color: #ffffff;
+      transition: all 0.3s ease;
+      display: inline-block;
+      outline: none; }
+      .create_event__btngroup button:hover {
+        background-color: #30856F;
+        color: #ffffff; }
+
+#create_event label {
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px; }
 
 /*# sourceMappingURL=main.css.map */

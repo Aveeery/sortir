@@ -1,16 +1,16 @@
 .btn {
   text-decoration: none;
   border: none;
-  background-color: $brand-primary;
+  background-color: $brand-secondary;
   padding: 8px 15px;
   border-radius: 10px;
-  color: $brand-text;
+  color: $brand-light;
   transition: all 0.3s ease;
   display: inline-block;
   outline: none;
 
-  &:hover{
-    background-color: $brand-dark;
+  &:hover {
+    background-color: $brand-secondary-dark;
     color: $brand-light;
   }
 }

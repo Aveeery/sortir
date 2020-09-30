@@ -3,12 +3,39 @@
 {% block title %}Créer une sortie{% endblock %}
 
 {% block body %}
+    <div class="create_event">
 
-    <a href="{{ path('create_place') }}">Ajouter un lieu</a>
-    <a href="{{ path('create_city') }}">Ajouter une ville</a>
-    {{ form_start(eventForm, {'attr' : {'id': 'create_event', 'data-route': path('show_places') }}) }}
 
-    {{ form_widget(eventForm) }}
-    {{ form_end(eventForm) }}
+        {{ form_start(eventForm, {'attr' : {'id': 'create_event', 'data-route': path('show_places') }}) }}
 
+        <div class="create_event__colcontainer">
+            <div class="create_event__colcontainer__col1">
+                {{ form_row(eventForm.city) }}
+                <a href="{{ path('create_city') }}">...ou ajoutez-en une !</a>
+
+                {{ form_row(eventForm.place) }}
+                <a href="{{ path('create_place') }}">...ou ajoutez-en un !</a>
+            </div>
+
+
+            <div class="create_event__colcontainer__col2">
+                {{ form_row(eventForm.name) }}
+                {{ form_row(eventForm.startDate) }}
+                {{ form_row(eventForm.closingDate) }}
+                {{ form_row(eventForm.duration) }}
+                {{ form_row(eventForm.maxAttendees) }}
+            </div>
+        </div>
+
+        <div class="create_event__description">
+            {{ form_row(eventForm.description) }}
+        </div>
+
+        <div class="create_event__btngroup">
+            {{ form_row(eventForm.publishEvent) }}
+            {{ form_row(eventForm.stashEvent) }}
+        </div>
+
+        {{ form_end(eventForm) }}
+    </div>
 {% endblock %}

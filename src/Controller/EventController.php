@@ -36,6 +36,7 @@ class EventController extends AbstractController
 
         if ($eventform->isSubmitted() && $eventform->isValid()) {
 
+
             $this->initialiazeEvent($eventform, $user, $event, $em);
             $this->addFlash('success', 'Sortie créée');
             return $this->redirectToRoute('home');
