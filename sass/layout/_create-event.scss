@@ -1,19 +1,79 @@
-#create_event {
-  max-width: 400px;
+.create_event {
   margin: auto;
-  box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.15);
-  border-radius : 10px;
-  padding: 40px;
+  padding: 10px 20px;
 
+  @include tablet {
+
+    padding: 80px;
+
+    &__colcontainer {
+      display: flex;
+      max-width: 600px;
+      margin: auto;
+
+
+      &__col1 {
+
+        label {
+          margin-top: 40px;
+        }
+      }
+
+      &__col1, &__col2 {
+        width: 50%;
+
+        select {
+          margin: 5px 0;
+        }
+      }
+    }
+  }
+
+  a {
+    color: $brand-secondary;
+  }
+
+  &__description {
+    max-width: 600px;
+    margin: auto;
+
+    textarea {
+      width: 100%;
+      min-height: 80px;
+    }
+  }
+
+  &__btngroup {
+    display: flex;
+    justify-content: center;
+
+    button {
+
+      margin: 30px 20px;
+      text-decoration: none;
+      border: none;
+      background-color: $brand-secondary;
+      padding: 8px 15px;
+      border-radius: 10px;
+      color: $brand-light;
+      transition: all 0.3s ease;
+      display: inline-block;
+      outline: none;
+
+      &:hover {
+        background-color: $brand-secondary-dark;
+        color: $brand-light;
+      }
+    }
+
+  }
+}
+
+
+#create_event {
   label {
     display: block;
     padding-top: 5px;
     padding-bottom: 5px;
-  }
-
-  button {
-    display:block;
-    margin: 20px auto 0;
-
   }
 }

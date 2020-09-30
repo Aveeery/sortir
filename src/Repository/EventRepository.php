@@ -65,24 +65,24 @@ class EventRepository extends ServiceEntityRepository
 
         //Si l'utilisateur séléctionne toutes les sorties terminées, on compare la date de l'evenement "startDate" avec la date du jour
         if ($criteria['over']) {
-                 $now = new \DateTime("now");
-                 $now->add(new \DateInterval('PT2H'));
-                 $qb
+            $now = new \DateTime("now");
+            $now->add(new \DateInterval('PT2H'));
+            $qb
                 ->andWhere('e.startDate < :date')
                 ->setParameter('date', $now);
         }
 
         if (strlen($criteria['name']) > 0) {
-            $qb->andWhere('e.name = :name')
-                ->setParameter('name', $criteria['name']);
+            $qb->andWhere('e.name LIKE :name')
+                ->setParameter('name', '%' . $criteria['name'] . '%');
         }
 
-        if (strlen($criteria['campus']) > 0) {
+        if ($criteria['campus']) {
             $qb
                 ->addSelect('c')
                 ->join('e.campus', 'c')
                 ->andWhere('c.name = :campusName')
-                ->setParameter('campusName', $criteria['campus']);
+                ->setParameter('campusName', $criteria['campus']->getName());
         }
 
         if ($criteria['firstDate']) {

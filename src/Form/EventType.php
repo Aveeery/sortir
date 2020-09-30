@@ -28,26 +28,29 @@ class EventType extends AbstractType
 
         $builder
             ->add('city', EntityType::class, [
-                'placeholder' => 'Sélectionner une ville',
+                'placeholder' => 'Sélectionnez une ville',
                 'class' => City::class,
-                'mapped' => false
+                'mapped' => false,
+                'label' => 'Ville : '
             ])
             ->add('place', null, [
-                'label' => 'lieu',
+                'label' => 'Lieu :',
                 'choice_label' => 'name',
-                'placeholder' => 'Sélectionner le lieu',
+                'placeholder' => 'Sélectionnez le lieu',
                 'required' => false,
             ])
-            ->add('name')
+            ->add('name',  null, ['label' => 'Nom de la sortie :'])
             ->add('startDate', DateTimeType::class, [
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'label' => 'Date et heure de la sortie :'
             ])
-            ->add('duration')
+            ->add('duration', null, ['label' => 'Durée en minutes :', 'attr' => ['step' => '10']])
             ->add('closingDate', DateTimeType::class, [
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'label' => 'Fin des inscriptions : '
             ])
-            ->add('description')
-            ->add('maxAttendees')
+            ->add('description', null, ['label' => 'Description :'])
+            ->add('maxAttendees', null, ['label' => 'Nombre de participants :'])
             ->add('publishEvent', SubmitType::class,  ['label' => 'Publier'])
             ->add('stashEvent', SubmitType::class,  ['label' => 'Enregistrer'])
             ;
