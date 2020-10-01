@@ -85,7 +85,7 @@ class EventFixtures extends Fixture
             $user->setUsername($faker->userName);
             $user->setFirstname($faker->firstName);
             $user->setLastname($faker->lastName);
-            $user->setAdmin(false);
+            $user->setAdmin(true);
             $user->setActive(true);
             $user->setMail($faker->email);
             $user->setPassword($password);
