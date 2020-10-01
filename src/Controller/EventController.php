@@ -25,8 +25,6 @@ class EventController extends AbstractController
     public function createEvent(Request $request, EntityManagerInterface $em)
     {
         $event = new Event();
-        $user = new User();
-        $status = new Status();
 
         $idUser = $this->getUser()->getId();
         $user = $this->getDoctrine()->getRepository(User::class)->find($idUser);
@@ -36,12 +34,10 @@ class EventController extends AbstractController
 
         if ($eventform->isSubmitted() && $eventform->isValid()) {
 
-
             $this->initialiazeEvent($eventform, $user, $event, $em);
             $this->addFlash('success', 'Sortie créée');
             return $this->redirectToRoute('home');
         }
-
 
         return $this->render('event/createEvent.html.twig', [
             'controller_name' => 'EventController',
@@ -49,11 +45,13 @@ class EventController extends AbstractController
         ]);
     }
 
-    public function initialiazeEvent($form, $user, $event, $em)
+    //définit à l'event un organisateur, un campus, et appelle la fonction stashOrPublishStatus qui définit un statut en fonction du choix de l'utilisateur
+    public function initialiazeEvent($form, $user, Event $event, $em)
     {
         $event->setOrganizer($user);
         $campus = $user->getCampus();
         $event->setCampus($campus);
+        $event->addAttendee($user);
 
         //setStatus l'event
         $this->stashOrPublishStatus($form, $event);
@@ -62,16 +60,17 @@ class EventController extends AbstractController
         $em->flush();
     }
 
+    //définit un statut en fonction du choix de l'utilisateur
     public function stashOrPublishStatus($form, $event)
     {
         $statusRepo = $this->getDoctrine()->getRepository(Status::class);
         $status = $statusRepo->getAllStatus();
 
         if ($form->get('stashEvent')->isClicked()) {
-           $event->setStatus($status['En création']);
+            $event->setStatus($status['Creating']);
         }
         if ($form->get('publishEvent')->isClicked()) {
-            $event->setStatus($status['Ouverte']);
+            $event->setStatus($status['Opened']);
         }
     }
 
@@ -120,8 +119,8 @@ class EventController extends AbstractController
 
         if ($event->getClosingDate() > $now and $event->getNbAttendees() < $event->getMaxAttendees()) {
             $event->addAttendee($userA);
-            if  ($event->getNbAttendees() == $event->getMaxAttendees()) {
-            $event->setStatus($status['Closed']);
+            if ($event->getNbAttendees() == $event->getMaxAttendees()) {
+                $event->setStatus($status['Closed']);
             }
 
             $em->flush();
@@ -171,6 +170,9 @@ class EventController extends AbstractController
         return $response;
     }
 
+
+    //L'event peut-être publié si son statut
+
     /**
      * @Route("/publier-sortie-{id}", name="publish")
      */
@@ -181,15 +183,16 @@ class EventController extends AbstractController
         $userId = $this->getUser()->getId();
         $status = new Status();
 
-        if ($organiserId == $userId && $event->getStatus()->getLabel() == 'En création') {
+        if ($organiserId == $userId && $event->getStatus()->getLabel() == 'Creating') {
 
-            $event->setStatus($status->setLabel('Ouverte'));
+            $event->setStatus($status->setLabel('Opened'));
 
             $this->addFlash('error', "La sortie a bien été publiée");
         } else {
             $this->addFlash('error', "Vous ne pouvez pas publier une sortie dont vous n'êtes pas l'organisateur");
         }
         $response = $this->forward('App\Controller\MainController::home');
+
         return $response;
     }
 }

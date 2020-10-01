@@ -26,7 +26,9 @@ class MainController extends AbstractController
     {
         $eventRepo = $this->getDoctrine()->getRepository(Event::class);
 
-        $events = $eventRepo->findAllEvents();
+        $events = $paginator->paginate(
+            $eventRepo->findAllEvents(),
+            $request->query->getInt('page',1), 9);
 
         $userId = $this->getUser()->getId();
 
@@ -36,21 +38,24 @@ class MainController extends AbstractController
 
         //Quand le formulaire en page d'accueil est soumis, on insère tous les filtres(criteria) dans un tableau pour effectuer une requête spécifique
         if ($filterForm->handleRequest($request)->isSubmitted()) {
+
 //            $this->updateEventsStatus();
             //Grâce aux critères de recherche récupérés (le getData du form) et l'id de session
-            $events = $eventRepo->filterEvents(
-                $filterForm->getData(),
-                $userId);
-
+//            $events = $eventRepo->filterEvents(
+//                $filterForm->getData(),
+//                $userId);
+            $events = $paginator->paginate(
+                $eventRepo->filterEvents(
+                    $filterForm->getData(),
+                    $userId),
+                $request->query->getInt('page',1), 9);
         }
 
         //On pagine les évènements grâce au knp paginator, on les affiche 9 par 9
-        $eventsPaginated= $paginator->paginate(
-            $events,
-            $request->query->getInt('page',1),9);
+
 
         return $this->render('main/home.html.twig', [
-            "filterForm" => $filterForm->createView(), 'events' => $eventsPaginated
+            "filterForm" => $filterForm->createView(), 'events' => $events
         ]);
     }
 
@@ -73,12 +78,17 @@ class MainController extends AbstractController
 
         foreach ($events as $event) {
 
+
+            //On clone la date de l'évènement pour y ajouter sa durée et définir une date de fin effective d'event
            $eventStartDate = clone $event->getStartDate();
            $eventFinished = $eventStartDate -> add(new DateInterval('PT'. $event->getDuration() .'M'));
 
+            //On clone la date de l'évènement pour y ajouter un mois et définir une date d'archive de l'event
            $eventStartDate2 = clone $event->getStartDate();
            $archiveDate = $eventStartDate2 -> add(new DateInterval('P1M'));
 
+
+            //en fonction des dates de chaque event et de son statut, on met le met à jour
            if ($eventFinished < $now and !$event->getStatus() instanceof $status['Over']) {
 
                $event->setStatus($status['Over']);
