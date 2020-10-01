@@ -1,0 +1,29 @@
+.cityContainer {
+
+  max-width: 90%;
+  margin: auto;
+
+
+  h3{
+    margin: 10px 0;
+  }
+
+  td, th{
+    padding-left: 10px;
+  }
+
+  tr:nth-child(even){
+    background-color: #f2f2f2
+  }
+
+  @include tablet{
+    display: flex;
+    max-width: 800px;
+    margin: 60px auto 0;
+    justify-content: space-around;
+  }
+
+  .btn-validate{
+    margin: 20px;
+  }
+}

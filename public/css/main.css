@@ -423,14 +423,32 @@ h1, h2, h3, h4 {
   transition: all 0.3s ease;
   display: inline-block;
   outline: none; }
+  .btn-secondary {
+    background-color: #3fae93;
+    color: #ffffff; }
+    .btn-secondary:hover {
+      background-color: #30856F !important; }
   .btn:hover {
     background-color: #555555;
     color: #ffffff; }
 
 input {
   padding: 5px;
+  margin: 5px;
   border: 1px solid #555555;
   border-radius: 4px; }
+
+.smallForm {
+  max-width: 300px;
+  margin: auto; }
+  .smallForm h3 {
+    text-align: center;
+    margin: 20px; }
+  .smallForm .btn {
+    margin: 10px auto;
+    display: block; }
+  .smallForm select {
+    margin: 5px; }
 
 .loginForm {
   width: 300px;
@@ -695,7 +713,7 @@ input {
 .user-admin {
   overflow-x: auto;
   margin: auto;
-  width: 80%;
+  width: 90%;
   padding-bottom: 2em; }
   .user-admin tr:nth-child(even) {
     background-color: #f2f2f2; }
@@ -708,23 +726,22 @@ input {
   padding: 1em; }
 
 .admin-btn-bar {
-  display: flex;
   margin: auto;
-  width: 80%;
-  flex-wrap: wrap;
-  justify-content: center; }
+  max-width: 90%; }
+  @media (min-width: 992px) {
+    .admin-btn-bar {
+      display: flex;
+      justify-content: space-between;
+      margin: 0 40px; } }
   .admin-btn-bar label {
     margin: 0.5em; }
-  .admin-btn-bar form[name="users_csv"] {
-    border: 1px black solid;
-    border-radius: 10px; }
-  .admin-btn-bar .admin-add-user-btn {
-    border: 1px black solid;
-    border-radius: 10px; }
 
-.csv-form {
-  display: flex;
-  justify-content: center; }
+.csv-form, .admin-add-user-btn {
+  padding-bottom: 10px; }
+  .csv-form p, .admin-add-user-btn p {
+    margin: 0; }
+  .csv-form .btn, .admin-add-user-btn .btn {
+    margin: 10px 0; }
 
 #users_csv {
   display: inline-block; }
@@ -732,5 +749,23 @@ input {
 .btn-danger, .btn-validate {
   min-width: 100px;
   margin: 0.5em; }
+
+.cityContainer {
+  max-width: 90%;
+  margin: auto; }
+  .cityContainer h3 {
+    margin: 10px 0; }
+  .cityContainer td, .cityContainer th {
+    padding-left: 10px; }
+  .cityContainer tr:nth-child(even) {
+    background-color: #f2f2f2; }
+  @media (min-width: 768px) {
+    .cityContainer {
+      display: flex;
+      max-width: 800px;
+      margin: 60px auto 0;
+      justify-content: space-around; } }
+  .cityContainer .btn-validate {
+    margin: 20px; }
 
 /*# sourceMappingURL=main.css.map */

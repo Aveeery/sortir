@@ -18,10 +18,10 @@ class PlaceType extends AbstractType
                 'class' => City::class,
                 'label' => 'Ville'
             ])
-            ->add('name')
-            ->add('street')
-            ->add('latitude')
-            ->add('longitude')
+            ->add('name', null, ['label' => 'Nom'])
+            ->add('street', null, ['label' => 'Rue'])
+            ->add('latitude', null, ['label' => 'Latitude'])
+            ->add('longitude', null, ['label' => 'Longitude'])
         ;
     }
 

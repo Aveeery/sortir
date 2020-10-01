@@ -4,10 +4,12 @@
 
 {% block body %}
 
-
+<div class="smallForm">
+    <h3>Créer un nouvel utilisateur</h3>
     {{ form_start(formview) }}
     {{ form_widget(formview) }}
-    <button type="submit">Ajouter</button>
+    <button type="submit" class="btn">Ajouter</button>
     {{ form_end(formview) }}
+</div>
 
 {% endblock %}

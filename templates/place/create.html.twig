@@ -3,11 +3,12 @@
 {% block title %}Ajouter un lieu{% endblock %}
 
 {% block body %}
-
-
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Ajouter</button>
-    {{ form_end(form) }}
+    <div class="smallForm">
+        <h3>Créer un lieu</h3>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn">Ajouter</button>
+        {{ form_end(form) }}
+    </div>
 
 {% endblock %}

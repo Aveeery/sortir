@@ -14,7 +14,7 @@ class UsersCsvType extends AbstractType
     {
         $builder
             ->add('file', FileType::class, [
-                'label' => 'Ajouter des utilisateurs'
+                'label' => 'Ajouter des utilisateurs (CSV)'
             ])
         ;
     }
