@@ -22,8 +22,10 @@
         <p>Email : {{ user.mail }}</p>
         <p>Campus : {{ user.campus.name }}
 
+            {% if user.id == app.user.id %}
         <div>
             <a class="btn" href="{{ path('update_profile') }}">Modifier mon profil</a>
         </div>
+        {% endif %}
     </div>
 {% endblock %}
