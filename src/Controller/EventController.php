@@ -9,6 +9,7 @@ use App\Entity\Place;
 use App\Entity\Status;
 use App\Entity\User;
 use App\Form\EventType;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,16 +53,14 @@ class EventController extends AbstractController
         $campus = $user->getCampus();
         $event->setCampus($campus);
         $event->addAttendee($user);
-
         //setStatus l'event
         $this->stashOrPublishStatus($form, $event);
-
         $em->persist($event);
         $em->flush();
     }
 
     //définit un statut en fonction du choix de l'utilisateur
-    public function stashOrPublishStatus($form, $event)
+    public function stashOrPublishStatus($form, Event $event)
     {
         $statusRepo = $this->getDoctrine()->getRepository(Status::class);
         $status = $statusRepo->getAllStatus();
@@ -181,11 +180,14 @@ class EventController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $organiserId = $event->getOrganizer()->getId();
         $userId = $this->getUser()->getId();
-        $status = new Status();
+
+        $statusRepo = $this->getDoctrine()->getRepository(Status::class);
+        $status = $statusRepo->getAllStatus();
 
         if ($organiserId == $userId && $event->getStatus()->getLabel() == 'Creating') {
 
-            $event->setStatus($status->setLabel('Opened'));
+            $event->setStatus($status['Opened']);
+            $em->flush();
 
             $this->addFlash('error', "La sortie a bien été publiée");
         } else {
