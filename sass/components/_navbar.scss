@@ -1,17 +1,16 @@
 .navbar {
   display: flex;
-  justify-content: space-between;
   padding: 10px 60px;
-  align-items: center;
+  justify-content: space-between;
 
 
   &__logo {
     text-decoration: none;
     color: $brand-text;
-    font-size: 30px;
     @extend .font-bold;
     position: relative;
     transition: all 0.3s ease;
+    font-size: 30px;
 
     &:after {
       background-color: $brand-secondary;
@@ -33,28 +32,69 @@
     }
 
     &:hover {
-    color: $brand-light;
+      color: $brand-light;
     }
 
   }
 
   &__list {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-size: 10px;
+    background-color: $brand-secondary;
+    z-index: 4;
+    width: 100%;
+    align-items: center;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: space-between;
     list-style: none;
 
-    a {
-      text-decoration: none;
-      color: $brand-text;
-      padding: 4px 20px;
-      margin: auto;
-      transition: background-size 0.4s ease;
-      background: linear-gradient(to bottom, transparent 75%, $brand-secondary 0) center center/0% 75% no-repeat;
+    .fas{
+      position: absolute;
+      top: 7px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 15px;
+    }
 
-      &:hover {
-        background-size: 100% 100%;
+    @include tablet{
+      background-color: transparent;
+      width: auto;
+      position: static;
+      font-size: 18px;
+      justify-content: space-between;
+
+      .fas{
+        display: none;
       }
+    }
+
+    a {
+      text-align: center;
+      text-decoration: none;
+      color: $brand-light;
+      padding: 26px 10px 6px;
+      margin: auto;
+      position: relative;
+      display: inline-block;
+
+      @include tablet{
+        padding: 0 15px;
+        color: $brand-text;
+        transition: background-size 0.4s ease;
+        background: linear-gradient(to bottom, transparent 65%, $brand-secondary 0) center center/0% 75% no-repeat;
+
+
+        &:hover {
+          background-size: 100% 100%;
+        }
+      }
+
     }
 
   }
 }
+
