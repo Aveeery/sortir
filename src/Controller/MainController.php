@@ -25,7 +25,7 @@ class MainController extends AbstractController
     public function home(Request $request, PaginatorInterface $paginator)
     {
         $eventRepo = $this->getDoctrine()->getRepository(Event::class);
-
+        $submit = false;
         $events = $paginator->paginate(
             $eventRepo->findAllEvents(),
             $request->query->getInt('page',1), 10);
@@ -38,7 +38,6 @@ class MainController extends AbstractController
 
         //Quand le formulaire en page d'accueil est soumis, on insère tous les filtres(criteria) dans un tableau pour effectuer une requête spécifique
         if ($filterForm->handleRequest($request)->isSubmitted()) {
-
 //            $this->updateEventsStatus();
             //Grâce aux critères de recherche récupérés (le getData du form) et l'id de session
 //            $events = $eventRepo->filterEvents(
@@ -47,13 +46,14 @@ class MainController extends AbstractController
             $events = $eventRepo->filterEvents(
                     $filterForm->getData(),
                     $userId);
+             $submit = true;
         }
 
         //On pagine les évènements grâce au knp paginator, on les affiche 9 par 9
 
 
         return $this->render('main/home.html.twig', [
-            "filterForm" => $filterForm->createView(), 'events' => $events
+            "filterForm" => $filterForm->createView(), 'events' => $events, "submit" => $submit
         ]);
     }
 
