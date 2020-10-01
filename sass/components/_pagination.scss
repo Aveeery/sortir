@@ -1,0 +1,16 @@
+.pagination{
+  display: block;
+  margin: auto;
+  font-size: 30px;
+  text-align: center;
+  background-color: $brand-primary;
+  .page, .next, .last, .first, .previous{
+    a{color: $brand-text;
+      text-decoration: none;}
+  }
+
+  .current{
+      color: $brand-secondary;
+  }
+
+}

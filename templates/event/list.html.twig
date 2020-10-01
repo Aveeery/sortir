@@ -79,8 +79,9 @@
 
         {% endif %}
     {% endfor %}
-    {{ knp_pagination_render(events) }}
+
     {% if events | length < 1 %}
         <p>Aucune sortie ne correspond aux critères séléctionnés !</p>
     {% endif %}
 </div>
+{{ knp_pagination_render(events) }}

@@ -28,7 +28,7 @@ class MainController extends AbstractController
 
         $events = $paginator->paginate(
             $eventRepo->findAllEvents(),
-            $request->query->getInt('page',1), 9);
+            $request->query->getInt('page',1), 10);
 
         $userId = $this->getUser()->getId();
 
