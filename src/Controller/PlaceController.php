@@ -22,8 +22,7 @@ class PlaceController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($place);
             $em->flush();
             $this->addFlash('success', 'Lieu ajouté');

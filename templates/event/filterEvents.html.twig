@@ -2,6 +2,7 @@
 
     <div class="filterForm__container__col1">
         <div class="filterForm__container__col1-1">
+            {{ form_start(filterForm.campus) }}
             {{ form_row(filterForm.campus) }}
             {{ form_row(filterForm.name) }}
             {{ form_row(filterForm.firstDate) }}
@@ -14,8 +15,10 @@
         </div>
     </div>
     <div class="filterForm__container__col2">
-        {{ form_row(filterForm.search) }}
+        {{ form_widget(filterForm.search) }}
         <a class="btn" href="{{ path('home') }}">Réinitialiser les filtres</a>
         <a class="btn" href="{{ path('update_status') }}">Mettre à jour les statuts</a>
+        {{ form_end(filterForm.campus) }}
     </div>
+
 </div>

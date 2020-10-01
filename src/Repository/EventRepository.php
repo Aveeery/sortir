@@ -41,19 +41,16 @@ class EventRepository extends ServiceEntityRepository
         $qb =  $this->createQueryBuilder('e')
             ->select('e')
             ->addSelect('u')
-            ->join('e.attendees', 'u')
+            ->leftJoin('e.attendees', 'u')
             ->addSelect('user')
-            ->join('e.organizer', 'user')
+            ->leftJoin('e.organizer', 'user')
             ->addSelect('c')
-            ->join('e.campus', 'c')
+            ->leftJoin('e.campus', 'c')
 
             ->getQuery();
 
           $query =  $qb->getResult();
-
           return $query;
-
-
     }
 
 
@@ -63,7 +60,7 @@ class EventRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('e')
             ->select('e')
             ->addSelect('u')
-            ->join('e.attendees', 'u');
+            ->leftJoin('e.attendees', 'u');
 
         if ($criteria['organizer']) {
             $qb

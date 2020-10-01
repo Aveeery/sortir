@@ -49,11 +49,13 @@ class UserController extends AbstractController
     /**
      * @Route("/updateprofile", name="update_profile")
      */
-    //L'utilisateur peut les informations de son profil
+    //L'utilisateur peut modifier les informations de son profil
     public function updateProfile(Request $request, EntityManagerInterface $em)
     {
         $idUser = $this->getUser()->getId();
         $user = $this->getDoctrine()->getRepository(User::class)->find($idUser);
+
+        //on conserve la valeur du password au moment ou l'utilisateur arrive sur la page
         $oldPassword = $user->getPassword();
         $profileForm = $this->createForm(UserType::class, $user);
 
@@ -95,7 +97,6 @@ class UserController extends AbstractController
     //Si le formulaire est soumis sans que le password ne soit changé, on insère la valeur de l'ancien password dans le nouveau
     public function updatePassword($oldPassword, $user)
     {
-
         if (empty($user->getPassword())) {
             $user->setPassword($oldPassword);
         } else {

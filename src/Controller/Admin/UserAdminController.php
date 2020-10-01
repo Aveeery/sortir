@@ -184,7 +184,6 @@ class UserAdminController extends AbstractController
         $this->em->flush();
         $this->addFlash('success', 'Utilisateur désactivé');
 
-
         return $this->redirectToRoute('user_admin');
     }
 }
