@@ -335,8 +335,8 @@ template {
 }
 
 *::selection {
-  background: #CCCCCC;
-  color: #3fae93;
+  background: rgba(11, 85, 214, 0.3);
+  color: rgba(11, 85, 214, 0.9);
 }
 
 .font-fira, h1, h2, h3, h4, html, body {
@@ -422,10 +422,10 @@ h1, h2, h3, h4 {
 }
 .eventItem__header {
   padding: 20px;
-  border-bottom: 1px solid #555555;
+  border-bottom: 1px solid rgba(11, 85, 214, 0.9);
 }
 .eventItem__header a {
-  color: #3fae93;
+  color: rgba(11, 85, 214, 0.9);
   text-decoration: none;
 }
 .eventItem__body {
@@ -470,7 +470,7 @@ h1, h2, h3, h4 {
   font-size: 14px;
   bottom: 0;
   right: 0;
-  background-color: #3fae93;
+  background-color: rgba(11, 85, 214, 0.9);
   color: #ffffff;
   width: 74px;
   height: 64px;
@@ -483,7 +483,7 @@ h1, h2, h3, h4 {
 .btn {
   text-decoration: none;
   border: none;
-  background-color: #CCCCCC;
+  background-color: rgba(11, 85, 214, 0.3);
   padding: 8px 15px;
   border-radius: 10px;
   color: #1F1F1F;
@@ -491,15 +491,39 @@ h1, h2, h3, h4 {
   display: inline-block;
   outline: none;
 }
+.btn-secondary {
+  background-color: rgba(11, 85, 214, 0.9);
+  color: #ffffff;
+}
+.btn-secondary:hover {
+  background-color: rgba(11, 85, 214, 0.6) !important;
+}
 .btn:hover {
-  background-color: #555555;
+  background-color: rgba(11, 85, 214, 0.9);
   color: #ffffff;
 }
 
 input {
   padding: 5px;
-  border: 1px solid #555555;
+  margin: 5px;
+  border: 1px solid rgba(11, 85, 214, 0.9);
   border-radius: 4px;
+}
+
+.smallForm {
+  max-width: 300px;
+  margin: auto;
+}
+.smallForm h3 {
+  text-align: center;
+  margin: 20px;
+}
+.smallForm .btn {
+  margin: 10px auto;
+  display: block;
+}
+.smallForm select {
+  margin: 5px;
 }
 
 .loginForm {
@@ -527,6 +551,8 @@ input {
 }
 
 .filterForm__container {
+  background-color: rgba(63, 174, 147, 0.08);
+  border-radius: 20px;
   max-width: 350px;
   margin: auto;
   padding: 20px;
@@ -603,7 +629,7 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: solid 2px #30856F;
+  border: solid 2px rgba(11, 85, 214, 0.6);
   border-radius: 25px;
   padding: 75px 0 20px;
   position: relative;
@@ -631,7 +657,7 @@ input {
 
 .navbar {
   display: flex;
-  padding: 10px 60px;
+  padding: 60px 60px;
   justify-content: space-between;
 }
 .navbar__logo {
@@ -642,7 +668,7 @@ input {
   font-size: 30px;
 }
 .navbar__logo:after {
-  background-color: #3fae93;
+  background-color: rgba(11, 85, 214, 0.9);
   content: " ";
   height: 30%;
   position: absolute;
@@ -665,7 +691,7 @@ input {
   bottom: 0;
   left: 0;
   font-size: 10px;
-  background-color: #3fae93;
+  background-color: rgba(11, 85, 214, 0.9);
   z-index: 4;
   width: 100%;
   align-items: center;
@@ -708,7 +734,7 @@ input {
     padding: 0 15px;
     color: #1F1F1F;
     transition: background-size 0.4s ease;
-    background: linear-gradient(to bottom, transparent 65%, #3fae93 0) center center/0% 75% no-repeat;
+    background: linear-gradient(to bottom, transparent 65%, rgba(11, 85, 214, 0.9) 0) center center/0% 75% no-repeat;
   }
   .navbar__list a:hover {
     background-size: 100% 100%;
@@ -739,7 +765,7 @@ input {
   }
 }
 .create_event a {
-  color: #3fae93;
+  color: rgba(11, 85, 214, 0.9);
 }
 .create_event__description {
   max-width: 600px;
@@ -757,7 +783,7 @@ input {
   margin: 30px 20px;
   text-decoration: none;
   border: none;
-  background-color: #3fae93;
+  background-color: rgba(11, 85, 214, 0.9);
   padding: 8px 15px;
   border-radius: 10px;
   color: #ffffff;
@@ -766,7 +792,7 @@ input {
   outline: none;
 }
 .create_event__btngroup button:hover {
-  background-color: #30856F;
+  background-color: rgba(11, 85, 214, 0.6);
   color: #ffffff;
 }
 
@@ -777,7 +803,7 @@ input {
 }
 
 .eventDetail__eventName {
-  color: #3fae93;
+  color: rgba(11, 85, 214, 0.9);
 }
 .eventDetail__colContainer {
   margin: auto;
@@ -813,10 +839,10 @@ input {
   text-align: center;
 }
 .eventDetail__attendees td a, .eventDetail__attendees th a {
-  color: #3fae93;
+  color: rgba(11, 85, 214, 0.9);
 }
 .eventDetail__attendees table, .eventDetail__attendees td, .eventDetail__attendees th {
-  border: 1px solid #555555;
+  border: 1px solid rgba(11, 85, 214, 0.9);
   border-collapse: collapse;
 }
 
@@ -836,7 +862,7 @@ input {
 .user-admin {
   overflow-x: auto;
   margin: auto;
-  width: 80%;
+  width: 90%;
   padding-bottom: 2em;
 }
 .user-admin tr:nth-child(even) {
@@ -853,27 +879,28 @@ input {
 }
 
 .admin-btn-bar {
-  display: flex;
   margin: auto;
-  width: 80%;
-  flex-wrap: wrap;
-  justify-content: center;
+  max-width: 90%;
+}
+@media (min-width: 992px) {
+  .admin-btn-bar {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 40px;
+  }
 }
 .admin-btn-bar label {
   margin: 0.5em;
 }
-.admin-btn-bar form[name=users_csv] {
-  border: 1px black solid;
-  border-radius: 10px;
-}
-.admin-btn-bar .admin-add-user-btn {
-  border: 1px black solid;
-  border-radius: 10px;
-}
 
-.csv-form {
-  display: flex;
-  justify-content: center;
+.csv-form, .admin-add-user-btn {
+  padding-bottom: 10px;
+}
+.csv-form p, .admin-add-user-btn p {
+  margin: 0;
+}
+.csv-form .btn, .admin-add-user-btn .btn {
+  margin: 10px 0;
 }
 
 #users_csv {
@@ -883,6 +910,46 @@ input {
 .btn-danger, .btn-validate {
   min-width: 100px;
   margin: 0.5em;
+}
+
+.cityContainer {
+  max-width: 90%;
+  margin: auto;
+}
+.cityContainer h3 {
+  margin: 10px 0;
+}
+.cityContainer td, .cityContainer th {
+  padding-left: 10px;
+}
+.cityContainer tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+@media (min-width: 768px) {
+  .cityContainer {
+    display: flex;
+    max-width: 800px;
+    margin: 60px auto 0;
+    justify-content: space-around;
+  }
+}
+.cityContainer .btn-validate {
+  margin: 20px;
+}
+
+.pagination {
+  display: block;
+  margin: auto;
+  font-size: 30px;
+  text-align: center;
+  background-color: rgba(11, 85, 214, 0.3);
+}
+.pagination .page a, .pagination .next a, .pagination .last a, .pagination .first a, .pagination .previous a {
+  color: #1F1F1F;
+  text-decoration: none;
+}
+.pagination .current {
+  color: rgba(11, 85, 214, 0.9);
 }
 
 /*# sourceMappingURL=main.css.map */
