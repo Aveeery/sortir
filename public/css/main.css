@@ -452,12 +452,54 @@ input {
   .loginForm input {
     margin-bottom: 20px; }
 
-#filter_event {
-  display: flex;
-  flex-direction: column;
-  padding: 30px; }
-  #filter_event input {
-    margin: 5px; }
+.filterForm__container {
+  max-width: 350px;
+  margin: auto;
+  padding: 20px; }
+  .filterForm__container label {
+    padding: 8px; }
+  .filterForm__container__col1-1 input {
+    display: block;
+    margin: 6px; }
+  .filterForm__container__col1-1 select {
+    margin: 6px;
+    height: 35px; }
+  .filterForm__container__col1-2 div {
+    margin: 20px 0; }
+  .filterForm__container__col2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; }
+    @media (min-width: 768px) {
+      .filterForm__container__col2 {
+        margin-top: 20px;
+        flex-direction: row; } }
+    @media (min-width: 992px) {
+      .filterForm__container__col2 {
+        margin-top: 0;
+        flex-direction: column; } }
+    .filterForm__container__col2 .btn {
+      margin: 10px; }
+  @media (min-width: 768px) {
+    .filterForm__container {
+      max-width: 700px; }
+      .filterForm__container__col1 {
+        display: flex; }
+      .filterForm__container__col1-1, .filterForm__container__col1-2 {
+        width: 50%; } }
+  @media (min-width: 992px) {
+    .filterForm__container {
+      display: flex; }
+      .filterForm__container__col1 {
+        width: 70%; }
+      .filterForm__container__col2 {
+        width: 30%; } }
+  @media (min-width: 1200px) {
+    .filterForm__container {
+      max-width: 1000px; } }
+  .filterForm__container input {
+    display: inline-block; }
 
 .userDetail {
   max-width: 300px;

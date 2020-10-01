@@ -36,14 +36,24 @@ class EventRepository extends ServiceEntityRepository
     }
     */
 
-    public function findAll()
+    public function findAllEvents()
     {
-        return $this->createQueryBuilder('e')
-            ->select('e', 'u', 's')
-            ->join('e.status', 's')
-            ->join('e.organizer', 'u')
-            ->getQuery()
-            ->getResult();
+        $qb =  $this->createQueryBuilder('e')
+            ->select('e')
+            ->addSelect('u')
+            ->join('e.attendees', 'u')
+            ->addSelect('user')
+            ->join('e.organizer', 'user')
+            ->addSelect('c')
+            ->join('e.campus', 'c')
+
+            ->getQuery();
+
+          $query =  $qb->getResult();
+
+          return $query;
+
+
     }
 
 
@@ -124,7 +134,6 @@ class EventRepository extends ServiceEntityRepository
                 return true;
             });
         }
-
         return $events;
     }
 

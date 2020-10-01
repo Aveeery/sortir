@@ -9,6 +9,9 @@ use App\Form\FilterEventType;
 use App\Repository\EventRepository;
 use DateInterval;
 use DateTime;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,14 +21,12 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-
     //La page d'accueil affiche une liste d'events et un formulaire de tri pour filtrer les events à afficher
-    public function home(Request $request)
+    public function home(Request $request, PaginatorInterface $paginator)
     {
-
         $eventRepo = $this->getDoctrine()->getRepository(Event::class);
 
-        $events = $eventRepo->findAll();
+        $events = $eventRepo->findAllEvents();
 
         $userId = $this->getUser()->getId();
 
@@ -35,16 +36,21 @@ class MainController extends AbstractController
 
         //Quand le formulaire en page d'accueil est soumis, on insère tous les filtres(criteria) dans un tableau pour effectuer une requête spécifique
         if ($filterForm->handleRequest($request)->isSubmitted()) {
-
+//            $this->updateEventsStatus();
             //Grâce aux critères de recherche récupérés (le getData du form) et l'id de session
             $events = $eventRepo->filterEvents(
                 $filterForm->getData(),
                 $userId);
 
-
         }
+
+        //On pagine les évènements grâce au knp paginator, on les affiche 9 par 9
+        $eventsPaginated= $paginator->paginate(
+            $events,
+            $request->query->getInt('page',1),9);
+
         return $this->render('main/home.html.twig', [
-            "filterForm" => $filterForm->createView(), 'events' => $events
+            "filterForm" => $filterForm->createView(), 'events' => $eventsPaginated
         ]);
     }
 
@@ -53,6 +59,8 @@ class MainController extends AbstractController
      * @Route("/update_status", name="update_status")
      */
     public function updateEventsStatus(){
+
+        $em = $this->getDoctrine()->getManager();
 
         $eventRepo = $this->getDoctrine()->getRepository(Event::class);
         $events = $eventRepo->findAll();
@@ -71,11 +79,12 @@ class MainController extends AbstractController
            $eventStartDate2 = clone $event->getStartDate();
            $archiveDate = $eventStartDate2 -> add(new DateInterval('P1M'));
 
-           if ($eventFinished < $now) {
+           if ($eventFinished < $now and !$event->getStatus() instanceof $status['Over']) {
+
                $event->setStatus($status['Over']);
            }
 
-           if ($eventStartDate < $now and $eventFinished > $now) {
+           if ($eventStartDate < $now and $eventFinished > $now and !$event->getStatus() instanceof $status['Running']){
                 $event->setStatus($status['Running']);
            }
 
@@ -83,14 +92,17 @@ class MainController extends AbstractController
                 $event->setStatus($status['Closed']);
             }
 
-            if ($archiveDate < $now) {
+            if ($archiveDate < $now and  !$event->getStatus() instanceof $status['Archived']) {
                 $event->setStatus($status['Archived']);
             }
 
-            if ($event->getClosingDate() > $now and $event->getNbAttendees() < $event->getMaxAttendees())
+            if ($event->getClosingDate() > $now and $event->getNbAttendees() < $event->getMaxAttendees() and  !$event->getStatus() instanceof $status['Opened'])
             {
                 $event->setStatus($status['Opened']);
             }
+
+            $em->flush();
+
         }
         $this->addFlash('success', 'Les statuts des sorties ont été mis à jour !');
         return $this->redirectToRoute('home');
