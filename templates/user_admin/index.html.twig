@@ -4,9 +4,26 @@
 
 {% block body %}
 
-    <h1>Gestion des utilisateurs</h1>
+    <h1 class="admin-h1">Gestion des utilisateurs</h1>
 
-    <div class="container">
+    <div class="admin-btn-bar">
+        <div class="csv-form">
+            {{ form_start(formview) }}
+            {{ form_widget(formview) }}
+            <button type="submit" class="btn btn-validate">Valider</button>
+            {{ form_end(formview) }}
+        </div>
+        <div class="admin-add-user-btn">
+            <a href="{{ path('user_admin_create_user') }}"><button class="btn btn-validate">Ajouter un utilisateur</button></a>
+        </div>
+
+        <div>
+            <a href="{{ path('campus_admin') }}"><button class="btn btn-validate">Gérer les campus</button></a>
+        </div>
+    </div>
+
+
+    <div class="user-admin" >
         <table>
             <thead>
                 <tr>
@@ -18,6 +35,7 @@
                     <th>Admin</th>
                     <th>Active</th>
                     <th>Campus Id</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
 
@@ -51,8 +69,6 @@
                                     <button class="btn btn-danger">Réactiver</button>
                         {% endif %}
                         </form>
-                    </td>
-                    <td>
                         <form method="post" action="{{ path('admin_delete_user', {id :user.id }) }}">
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-danger">Supprimer</button>
@@ -61,21 +77,5 @@
                 </tr>
             {% endfor %}
         </table>
-        <div>
-            {{ form_start(formview) }}
-            {{ form_widget(formview) }}
-            <button type="submit">Ajouter</button>
-            {{ form_end(formview) }}
-        </div>
-        <div>
-            <a href="{{ path('user_admin_create_user') }}"><button><i class="fas fa-user-plus fa-lg"></i></button></a>
-        </div>
-
-        <div>
-            <a href="{{ path('campus_admin') }}">Gérer les campus</a>
-        </div>
-
-
     </div>
-
 {% endblock %}

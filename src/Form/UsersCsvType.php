@@ -13,7 +13,9 @@ class UsersCsvType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', FileType::class, ['label' => "Ajouter des utilisateurs "])
+            ->add('file', FileType::class, [
+                'label' => 'Ajouter des utilisateurs'
+            ])
         ;
     }
 
