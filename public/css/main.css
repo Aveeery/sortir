@@ -638,4 +638,16 @@ input {
     border: 1px solid #555555;
     border-collapse: collapse; }
 
+.alert {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+  background-color: #F8D7DA;
+  padding: 20px;
+  margin-top: 2.5em;
+  text-align: center;
+  color: #721C24; }
+
 /*# sourceMappingURL=main.css.map */
