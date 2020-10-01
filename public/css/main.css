@@ -768,4 +768,16 @@ input {
   .cityContainer .btn-validate {
     margin: 20px; }
 
+.pagination {
+  display: block;
+  margin: auto;
+  font-size: 30px;
+  text-align: center;
+  background-color: #CCCCCC; }
+  .pagination .page a, .pagination .next a, .pagination .last a, .pagination .first a, .pagination .previous a {
+    color: #1F1F1F;
+    text-decoration: none; }
+  .pagination .current {
+    color: #3fae93; }
+
 /*# sourceMappingURL=main.css.map */
