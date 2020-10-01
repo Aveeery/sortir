@@ -18,11 +18,11 @@
     {% endblock %}
 
         {% for messages in app.flashes(['success', 'error']) %}
-            <div class="alert">
                 {% for message in messages %}
-                    {{ message }}
+                    <div class="alert">
+                        {{ message }}
+                    </div>
                 {% endfor %}
-            </div>
         {% endfor %}
 
         {% block body %}
