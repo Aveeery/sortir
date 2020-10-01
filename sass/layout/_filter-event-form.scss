@@ -1,0 +1,79 @@
+.filterForm__container {
+
+  label {
+
+    padding : 8px;
+  }
+
+  max-width: 350px;
+  margin: auto;
+  padding: 20px;
+
+  &__col1-1 {
+    input {
+      display: block;
+      margin: 6px;
+    }
+    select {
+      margin: 6px;
+      height: 35px;
+    }
+  }
+
+  &__col1-2 {
+    div{
+      margin: 20px 0;
+    }
+  }
+
+  &__col2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    @include tablet{
+      margin-top: 20px;
+      flex-direction: row;
+    }
+
+    @include laptop{
+      margin-top: 0;
+      flex-direction: column;
+    }
+    .btn{
+      margin: 10px;
+    }
+  }
+
+  @include tablet {
+    max-width: 700px;
+    &__col1 {
+      display: flex;
+    }
+
+    &__col1-1, &__col1-2 {
+      width: 50%;
+    }
+  }
+
+  @include laptop {
+    display: flex;
+
+    &__col1 {
+      width: 70%;
+    }
+
+    &__col2 {
+      width: 30%;
+    }
+
+  }
+
+  @include desktop {
+    max-width: 1000px;
+  }
+
+  input {
+    display: inline-block;
+  }
+}

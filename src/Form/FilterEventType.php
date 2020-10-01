@@ -23,16 +23,16 @@ class FilterEventType extends AbstractType
         $builder
              ->add('campus', EntityType::class, [
                 'class' => Campus::class,
-                'label' => 'Campus',
+                'label' => 'Campus :',
                  'required' => false,
-                 'placeholder' =>  "Séléctionnez le campus"
+                 'placeholder' =>  "Choisir le campus"
             ])
-            ->add('name',TextType::class, ['required' => false])
-            ->add('firstDate', DateType::class, [ 'required' => false, 'widget' => 'single_text'])
-            ->add('secondDate', DateType::class, [ 'required' => false, 'widget' => 'single_text'])
+            ->add('name',TextType::class, ['required' => false, 'label' => 'Nom : '])
+            ->add('firstDate', DateType::class, [ 'required' => false, 'widget' => 'single_text',  'label' =>'Entre le :'])
+            ->add('secondDate', DateType::class, [ 'required' => false, 'widget' => 'single_text',  'label' =>'et le :'])
             ->add('registeredOrNot', ChoiceType::class, ['choices' => [
-                'Sorties auxquelles je suis inscrit' => 'registered',
-                'Sorties auxquelles je ne suis pas inscrit' => 'notRegistered'
+                'Déjà inscrit' => 'registered',
+                'Pas encore inscrit' => 'notRegistered'
             ],
                 'multiple' => false,
                 'required' => false,
@@ -42,7 +42,7 @@ class FilterEventType extends AbstractType
             ])
             ->add('organizer', CheckBoxType::class,  ['label' => 'J\'organise','required' => false])
             ->add('over', CheckboxType::class,  ['label' => 'Sorties terminées', 'required' => false])
-            ->add('search', SubmitType::class,  ['label' => 'Rechercher']);
+            ->add('search', SubmitType::class,  ['label' => 'Rechercher', 'attr' => ['class' => 'btn']]);
 
     }
 

@@ -45,7 +45,7 @@
                         le {{ event.closingDate | date("d/m/Y") }}</p>
                     <div class="eventItem__nbAttendees">
                         <p>Places</p>
-                        <p><i class="fas fa-users"></i>  {{ event.nbAttendees }} / {{ event.maxAttendees }} </p>
+                        <p><i class="fas fa-users"></i> {{ event.nbAttendees }} / {{ event.maxAttendees }} </p>
                     </div>
 
                 </div>
@@ -79,6 +79,7 @@
 
         {% endif %}
     {% endfor %}
+    {{ knp_pagination_render(events) }}
     {% if events | length < 1 %}
         <p>Aucune sortie ne correspond aux critères séléctionnés !</p>
     {% endif %}

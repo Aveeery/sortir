@@ -4,11 +4,8 @@
 
     <section class="eventsContainer">
 
-    <div class="filterForm">
-    {{ form(filterForm) }}
-    </div>
-
-    {% include 'event/list.html.twig' %}
+        {% include 'event/filterEvents.html.twig' %}
+        {% include 'event/list.html.twig' %}
 
     </section>
 

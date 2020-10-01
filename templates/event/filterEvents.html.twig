@@ -1,0 +1,21 @@
+<div class="filterForm__container">
+
+    <div class="filterForm__container__col1">
+        <div class="filterForm__container__col1-1">
+            {{ form_row(filterForm.campus) }}
+            {{ form_row(filterForm.name) }}
+            {{ form_row(filterForm.firstDate) }}
+            {{ form_row(filterForm.secondDate) }}
+        </div>
+        <div class="filterForm__container__col1-2">
+            {{ form_row(filterForm.registeredOrNot) }}
+            {{ form_row(filterForm.organizer) }}
+            {{ form_row(filterForm.over) }}
+        </div>
+    </div>
+    <div class="filterForm__container__col2">
+        {{ form_row(filterForm.search) }}
+        <a class="btn" href="{{ path('home') }}">Réinitialiser les filtres</a>
+        <a class="btn" href="{{ path('update_status') }}">Mettre à jour les statuts</a>
+    </div>
+</div>

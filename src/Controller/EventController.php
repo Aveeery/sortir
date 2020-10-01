@@ -42,6 +42,7 @@ class EventController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
+
         return $this->render('event/createEvent.html.twig', [
             'controller_name' => 'EventController',
             'eventForm' => $eventform->createView(),
