@@ -1,0 +1,58 @@
+.user-admin {
+  overflow-x: auto;
+  margin: auto;
+  width: 80%;
+  padding-bottom: 2em;
+
+
+  tr:nth-child(even){
+    background-color: #f2f2f2
+  }
+
+  th, td {
+    text-align: left;
+    padding: 0.5em;
+  }
+}
+
+.admin-h1 {
+  text-align: center;
+  padding: 1em;
+}
+
+.admin-btn-bar {
+  display: flex;
+  margin: auto;
+  width: 80%;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  label {
+    margin: 0.5em;
+  }
+
+  form[name="users_csv"] {
+    border: 1px black solid;
+    border-radius: 10px;
+  }
+
+  .admin-add-user-btn {
+    border: 1px black solid;
+    border-radius: 10px;
+  }
+}
+
+.csv-form {
+  display: flex;
+  justify-content: center;
+
+}
+
+#users_csv {
+  display: inline-block;
+}
+
+.btn-danger, .btn-validate {
+  min-width: 100px;
+  margin: 0.5em;
+}

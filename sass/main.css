@@ -526,13 +526,75 @@ input {
   margin-bottom: 20px;
 }
 
-#filter_event {
+.filterForm__container {
+  max-width: 350px;
+  margin: auto;
+  padding: 20px;
+}
+.filterForm__container label {
+  padding: 8px;
+}
+.filterForm__container__col1-1 input {
+  display: block;
+  margin: 6px;
+}
+.filterForm__container__col1-1 select {
+  margin: 6px;
+  height: 35px;
+}
+.filterForm__container__col1-2 div {
+  margin: 20px 0;
+}
+.filterForm__container__col2 {
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  align-items: center;
+  justify-content: center;
 }
-#filter_event input {
-  margin: 5px;
+@media (min-width: 768px) {
+  .filterForm__container__col2 {
+    margin-top: 20px;
+    flex-direction: row;
+  }
+}
+@media (min-width: 992px) {
+  .filterForm__container__col2 {
+    margin-top: 0;
+    flex-direction: column;
+  }
+}
+.filterForm__container__col2 .btn {
+  margin: 10px;
+}
+@media (min-width: 768px) {
+  .filterForm__container {
+    max-width: 700px;
+  }
+  .filterForm__container__col1 {
+    display: flex;
+  }
+  .filterForm__container__col1-1, .filterForm__container__col1-2 {
+    width: 50%;
+  }
+}
+@media (min-width: 992px) {
+  .filterForm__container {
+    display: flex;
+  }
+  .filterForm__container__col1 {
+    width: 70%;
+  }
+  .filterForm__container__col2 {
+    width: 30%;
+  }
+}
+@media (min-width: 1200px) {
+  .filterForm__container {
+    max-width: 1000px;
+  }
+}
+.filterForm__container input {
+  display: inline-block;
 }
 
 .userDetail {
@@ -769,6 +831,58 @@ input {
   margin-top: 2.5em;
   text-align: center;
   color: #721C24;
+}
+
+.user-admin {
+  overflow-x: auto;
+  margin: auto;
+  width: 80%;
+  padding-bottom: 2em;
+}
+.user-admin tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.user-admin th, .user-admin td {
+  text-align: left;
+  padding: 0.5em;
+}
+
+.admin-h1 {
+  text-align: center;
+  padding: 1em;
+}
+
+.admin-btn-bar {
+  display: flex;
+  margin: auto;
+  width: 80%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.admin-btn-bar label {
+  margin: 0.5em;
+}
+.admin-btn-bar form[name=users_csv] {
+  border: 1px black solid;
+  border-radius: 10px;
+}
+.admin-btn-bar .admin-add-user-btn {
+  border: 1px black solid;
+  border-radius: 10px;
+}
+
+.csv-form {
+  display: flex;
+  justify-content: center;
+}
+
+#users_csv {
+  display: inline-block;
+}
+
+.btn-danger, .btn-validate {
+  min-width: 100px;
+  margin: 0.5em;
 }
 
 /*# sourceMappingURL=main.css.map */
