@@ -9,6 +9,15 @@
   display: inline-block;
   outline: none;
 
+  &-secondary{
+    background-color: $brand-secondary;
+    color: $brand-light;
+
+    &:hover {
+      background-color: $brand-secondary-dark !important;
+    }
+  }
+
   &:hover {
     background-color: $brand-dark;
     color: $brand-light;

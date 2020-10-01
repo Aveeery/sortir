@@ -3,43 +3,47 @@
 {% block title %}Créer une ville{% endblock %}
 
 {% block body %}
+<div class="cityContainer">
+    <div class="cityContainer__cityList">
+        <h3>Rechercher une ville</h3>
+        {{ form_start(citySearchForm) }}
+        {{ form_widget(citySearchForm) }}
+        <button type="submit" class="btn btn-validate">Rechercher</button>
+        {{ form_end(citySearchForm) }}
 
-    {{ form_start(citySearchForm) }}
-    {{ form_widget(citySearchForm) }}
-    <button type="submit">Rechercher</button>
-    {{ form_end(citySearchForm) }}
-
-<div class="container">
-    <table>
-        <thead>
+        <table>
+            <thead>
             <tr>
                 <th>Ville</th>
                 <th>Code postal</th>
             </tr>
-        </thead>
+            </thead>
 
-        {% for city in cities %}
-            <tr>
-                <td>{{ city.name }}</td>
-                <td>{{ city.postCode }}</td>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <td>
-                        <form method="post" action="{{ path('admin_delete_city', {id :city.id }) }}">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button class="btn btn-danger">Supprimer</button>
-                        </form>
-                    </td>
-                {% endif %}
+            {% for city in cities %}
+                <tr>
+                    <td>{{ city.name }}</td>
+                    <td>{{ city.postCode }}</td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>
+                            <form method="post" action="{{ path('admin_delete_city', {id :city.id }) }}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn">Supprimer</button>
+                            </form>
+                        </td>
+                    {% endif %}
 
-            </tr>
-        {% endfor %}
-    </table>
-</div>
-    <div>
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit">Ajouter</button>
-        {{ form_end(form) }}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="cityContainer__cityAdd">
+        <div>
+            <h3>Créer une nouvelle ville</h3>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-validate">Ajouter</button>
+            {{ form_end(form) }}
+        </div>
     </div>
 
-{% endblock %}
+    {% endblock %}

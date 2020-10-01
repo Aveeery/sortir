@@ -7,18 +7,20 @@
     <h1 class="admin-h1">Gestion des utilisateurs</h1>
 
     <div class="admin-btn-bar">
-        <div class="csv-form">
-            {{ form_start(formview) }}
-            {{ form_widget(formview) }}
-            <button type="submit" class="btn btn-validate">Valider</button>
-            {{ form_end(formview) }}
-        </div>
-        <div class="admin-add-user-btn">
-            <a href="{{ path('user_admin_create_user') }}"><button class="btn btn-validate">Ajouter un utilisateur</button></a>
+        <div class="add-user">
+            <div class="csv-form">
+                {{ form_start(formview) }}
+                {{ form_widget(formview) }}
+                <button type="submit" class="btn btn-validate">Valider</button>
+                {{ form_end(formview) }}
+            </div>
+            <div class="admin-add-user-btn">
+                <a class="btn btn-validate" href="{{ path('user_admin_create_user') }}">Ajouter un utilisateur (formulaire)</a>
+            </div>
         </div>
 
         <div>
-            <a href="{{ path('campus_admin') }}"><button class="btn btn-validate">Gérer les campus</button></a>
+            <a href="{{ path('campus_admin') }}"><button class="btn btn-secondary">Gérer les campus</button></a>
         </div>
     </div>
 
@@ -27,14 +29,14 @@
         <table>
             <thead>
                 <tr>
-                    <th>Username</th>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Phone number</th>
-                    <th>Mail</th>
-                    <th>Admin</th>
-                    <th>Active</th>
-                    <th>Campus Id</th>
+                    <th>Pseudo</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Numéro de téléphone</th>
+                    <th>E-mail</th>
+                    <th>Administrateur</th>
+                    <th>Actif</th>
+                    <th>Campus</th>
                     <th>Actions</th>
                 </tr>
             </thead>

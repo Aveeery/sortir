@@ -14,7 +14,7 @@ class CampusSearchType extends AbstractType
         $builder
             ->add('name', null, [
                 'required' => false,
-                'label' => 'le nom contient',
+                'label' => 'Le nom contient : ',
             ])
         ;
     }

@@ -1,5 +1,25 @@
 input{
   padding: 5px;
+  margin: 5px;
   border: 1px solid $brand-dark;
   border-radius: 4px;
+}
+
+.smallForm{
+  h3{
+    text-align: center;
+    margin: 20px;
+  }
+
+  .btn{
+    margin: 10px auto;
+    display: block;
+  }
+
+  select{
+    margin: 5px;
+  }
+
+  max-width: 300px;
+  margin: auto;
 }
