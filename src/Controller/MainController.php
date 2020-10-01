@@ -44,11 +44,9 @@ class MainController extends AbstractController
 //            $events = $eventRepo->filterEvents(
 //                $filterForm->getData(),
 //                $userId);
-            $events = $paginator->paginate(
-                $eventRepo->filterEvents(
+            $events = $eventRepo->filterEvents(
                     $filterForm->getData(),
-                    $userId),
-                $request->query->getInt('page',1), 9);
+                    $userId);
         }
 
         //On pagine les évènements grâce au knp paginator, on les affiche 9 par 9
