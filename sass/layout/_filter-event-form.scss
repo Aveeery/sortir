@@ -1,6 +1,6 @@
 .filterForm__container {
 
-  background-color: rgba(63, 174, 147, 0.08);
+  background-color: #F3F2EB;
   border-radius: 20px;
 
   label {
@@ -34,6 +34,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     @include tablet{
       margin-top: 20px;
       flex-direction: row;
@@ -42,6 +43,7 @@
     @include laptop{
       margin-top: 0;
       flex-direction: column;
+      align-items: flex-start;
     }
     .btn{
       margin: 10px;

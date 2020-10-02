@@ -3,11 +3,11 @@
 {% block title %}Modifier profil{% endblock %}
 
 {% block body %}
-
+    <div class="profilForm">
     {{ form_start(profileForm) }}
     {{ form_widget(profileForm) }}
 
-    <button type="submit">Modifier</button>
+    <button type="submit" class="btn">Modifier</button>
     {{ form_end(profileForm) }}
-
+    </div>
 {% endblock %}

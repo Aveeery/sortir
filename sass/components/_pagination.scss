@@ -1,13 +1,15 @@
 .pagination{
   display: block;
   margin: auto;
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
-  background-color: $brand-primary;
+  padding: 10px;
+
   .page, .next, .last, .first, .previous{
-    a{color: $brand-text;
+    a{
+      color: $brand-text;
       text-decoration: none;}
-  }
+    }
 
   .current{
       color: $brand-secondary;

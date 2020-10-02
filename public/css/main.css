@@ -301,8 +301,8 @@ template {
   box-sizing: border-box; }
 
 *::selection {
-  background: rgba(11, 85, 214, 0.3);
-  color: rgba(11, 85, 214, 0.9); }
+  background: #5A798C;
+  color: #80BF9B; }
 
 .font-fira, html, body, h1, h2, h3, h4 {
   font-family: 'Fira Sans Extra Condensed', sans-serif; }
@@ -367,9 +367,9 @@ h1, h2, h3, h4 {
     transform: scale(1.05); }
   .eventItem__header {
     padding: 20px;
-    border-bottom: 1px solid rgba(11, 85, 214, 0.9); }
+    border-bottom: 1px solid #253C59; }
     .eventItem__header a {
-      color: rgba(11, 85, 214, 0.9);
+      color: #80BF9B;
       text-decoration: none; }
   .eventItem__body {
     padding: 20px;
@@ -405,7 +405,7 @@ h1, h2, h3, h4 {
     font-size: 14px;
     bottom: 0;
     right: 0;
-    background-color: rgba(11, 85, 214, 0.9);
+    background-color: #80BF9B;
     color: #ffffff;
     width: 74px;
     height: 64px;
@@ -416,26 +416,33 @@ h1, h2, h3, h4 {
 .btn {
   text-decoration: none;
   border: none;
-  background-color: rgba(11, 85, 214, 0.3);
+  background-color: #5A798C;
   padding: 8px 15px;
   border-radius: 10px;
-  color: #1F1F1F;
+  color: #ffffff;
   transition: all 0.3s ease;
   display: inline-block;
   outline: none; }
   .btn-secondary {
-    background-color: rgba(11, 85, 214, 0.9);
+    background-color: #80BF9B;
     color: #ffffff; }
     .btn-secondary:hover {
-      background-color: rgba(11, 85, 214, 0.6) !important; }
+      background-color: #025940 !important; }
+  .btn-outline {
+    background-color: transparent;
+    border: 1px solid #5A798C;
+    color: #253C59; }
+    .btn-outline:hover {
+      background-color: #5A798C !important;
+      color: #ffffff; }
   .btn:hover {
-    background-color: rgba(11, 85, 214, 0.9);
+    background-color: #253C59;
     color: #ffffff; }
 
 input {
   padding: 5px;
   margin: 5px;
-  border: 1px solid rgba(11, 85, 214, 0.9);
+  border: 1px solid #253C59;
   border-radius: 4px; }
 
 .smallForm {
@@ -449,6 +456,10 @@ input {
     display: block; }
   .smallForm select {
     margin: 5px; }
+
+.profilForm {
+  max-width: 500px;
+  margin: auto; }
 
 .loginForm {
   width: 300px;
@@ -469,9 +480,13 @@ input {
     margin-bottom: 7px; }
   .loginForm input {
     margin-bottom: 20px; }
+  .loginForm a {
+    color: #80BF9B; }
+  .loginForm .btn {
+    margin-top: 10px; }
 
 .filterForm__container {
-  background-color: rgba(63, 174, 147, 0.08);
+  background-color: #F3F2EB;
   border-radius: 20px;
   max-width: 350px;
   margin: auto;
@@ -498,7 +513,8 @@ input {
     @media (min-width: 992px) {
       .filterForm__container__col2 {
         margin-top: 0;
-        flex-direction: column; } }
+        flex-direction: column;
+        align-items: flex-start; } }
     .filterForm__container__col2 .btn {
       margin: 10px; }
   @media (min-width: 768px) {
@@ -527,7 +543,7 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: solid 2px rgba(11, 85, 214, 0.6);
+  border: solid 2px #025940;
   border-radius: 25px;
   padding: 75px 0 20px;
   position: relative;
@@ -559,7 +575,7 @@ input {
     transition: all 0.3s ease;
     font-size: 30px; }
     .navbar__logo:after {
-      background-color: rgba(11, 85, 214, 0.9);
+      background-color: #80BF9B;
       content: " ";
       height: 30%;
       position: absolute;
@@ -579,7 +595,7 @@ input {
     bottom: 0;
     left: 0;
     font-size: 10px;
-    background-color: rgba(11, 85, 214, 0.9);
+    background-color: #80BF9B;
     z-index: 4;
     width: 100%;
     align-items: center;
@@ -616,9 +632,14 @@ input {
           padding: 0 15px;
           color: #1F1F1F;
           transition: background-size 0.4s ease;
-          background: linear-gradient(to bottom, transparent 65%, rgba(11, 85, 214, 0.9) 0) center center/0% 75% no-repeat; }
+          background: linear-gradient(to bottom, transparent 65%, #80BF9B 0) center center/0% 75% no-repeat; }
           .navbar__list a:hover {
             background-size: 100% 100%; } }
+  .navbar .admin {
+    display: none; }
+    @media (min-width: 768px) {
+      .navbar .admin {
+        display: block; } }
 
 .create_event {
   margin: auto;
@@ -637,7 +658,7 @@ input {
           .create_event__colcontainer__col1 select, .create_event__colcontainer__col2 select {
             margin: 5px 0; } }
   .create_event a {
-    color: rgba(11, 85, 214, 0.9); }
+    color: #80BF9B; }
   .create_event__description {
     max-width: 600px;
     margin: auto; }
@@ -651,7 +672,7 @@ input {
       margin: 30px 20px;
       text-decoration: none;
       border: none;
-      background-color: rgba(11, 85, 214, 0.9);
+      background-color: #80BF9B;
       padding: 8px 15px;
       border-radius: 10px;
       color: #ffffff;
@@ -659,7 +680,7 @@ input {
       display: inline-block;
       outline: none; }
       .create_event__btngroup button:hover {
-        background-color: rgba(11, 85, 214, 0.6);
+        background-color: #025940;
         color: #ffffff; }
 
 #create_event label {
@@ -668,7 +689,7 @@ input {
   padding-bottom: 5px; }
 
 .eventDetail__eventName {
-  color: rgba(11, 85, 214, 0.9); }
+  color: #80BF9B; }
 .eventDetail__colContainer {
   margin: auto;
   max-width: 900px;
@@ -695,9 +716,9 @@ input {
     padding: 5px;
     text-align: center; }
     .eventDetail__attendees td a, .eventDetail__attendees th a {
-      color: rgba(11, 85, 214, 0.9); }
+      color: #80BF9B; }
   .eventDetail__attendees table, .eventDetail__attendees td, .eventDetail__attendees th {
-    border: 1px solid rgba(11, 85, 214, 0.9);
+    border: 1px solid #253C59;
     border-collapse: collapse; }
 
 .alert {
@@ -705,7 +726,6 @@ input {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 12px;
   background-color: #F8D7DA;
   padding: 20px;
   margin-top: 2.5em;
@@ -773,13 +793,13 @@ input {
 .pagination {
   display: block;
   margin: auto;
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
-  background-color: rgba(11, 85, 214, 0.3); }
+  padding: 10px; }
   .pagination .page a, .pagination .next a, .pagination .last a, .pagination .first a, .pagination .previous a {
     color: #1F1F1F;
     text-decoration: none; }
   .pagination .current {
-    color: rgba(11, 85, 214, 0.9); }
+    color: #80BF9B; }
 
 /*# sourceMappingURL=main.css.map */

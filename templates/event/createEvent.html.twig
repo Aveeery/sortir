@@ -5,7 +5,6 @@
 {% block body %}
     <div class="create_event">
 
-
         {{ form_start(eventForm, {'attr' : {'id': 'create_event', 'data-route': path('show_places') }}) }}
 
         <div class="create_event__colcontainer">
@@ -16,7 +15,6 @@
                 {{ form_row(eventForm.place) }}
                 <a href="{{ path('create_place') }}">...ou ajoutez-en un !</a>
             </div>
-
 
             <div class="create_event__colcontainer__col2">
                 {{ form_row(eventForm.name) }}
