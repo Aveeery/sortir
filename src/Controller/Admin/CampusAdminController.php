@@ -62,14 +62,20 @@ class CampusAdminController extends AbstractController
     /**
      * @Route("/admin/deletecampus/{id}", requirements={"id":"\d+"}, name="admin_delete_campus", methods="DELETE")
      */
-    public function deleteCity(Request $request, Campus $campus)
+    public function deleteCampus(Request $request, Campus $campus)
     {
 
-        $this->em->remove($campus);
-        $this->em->flush();
+        try {
+            $this->em->remove($campus);
+            $this->em->flush();
+        }
+        catch (\Exception $e)
+        {
+            $this->addFlash('error', 'Erreur lors de la suppression en base de données : impossible de supprimer un campus auquel sont encore rattachés des élèves ou des sorties');
+            return $this->redirectToRoute('campus_admin');
+        }
+
         $this->addFlash('success', 'Campus supprimé avec succès');
-
-
         return $this->redirectToRoute('campus_admin');
     }
 }
