@@ -94,6 +94,8 @@ class UserAdminController extends AbstractController
 
             unlink($file_path);
             $em->flush();
+            $this->addFlash('success', 'Les utilisateurs ont été ajoutés');
+            return $this->redirectToRoute('user_admin');
         }
 
         $formview = $csvForm->createView();
