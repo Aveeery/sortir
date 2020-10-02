@@ -480,6 +480,10 @@ input {
     margin-bottom: 7px; }
   .loginForm input {
     margin-bottom: 20px; }
+  .loginForm a {
+    color: #80BF9B; }
+  .loginForm .btn {
+    margin-top: 10px; }
 
 .filterForm__container {
   background-color: #F3F2EB;
@@ -789,9 +793,9 @@ input {
 .pagination {
   display: block;
   margin: auto;
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
-  background-color: #5A798C; }
+  padding: 10px; }
   .pagination .page a, .pagination .next a, .pagination .last a, .pagination .first a, .pagination .previous a {
     color: #1F1F1F;
     text-decoration: none; }
