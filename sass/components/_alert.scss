@@ -3,9 +3,17 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #F8D7DA;
   padding: 20px;
   margin-top: 2.5em;
   text-align: center;
-  color: #721C24;
+
+  &-success{
+    background-color: #ADDE4B;
+    color: #185219;
+  }
+
+  &-error{
+    background-color: #F8D7DA;
+    color: #721C24;
+  }
 }

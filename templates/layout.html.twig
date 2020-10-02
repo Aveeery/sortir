@@ -15,12 +15,20 @@
         <header>{% include ('nav.html.twig') %}</header>
     {% endblock %}
 
-        {% for messages in app.flashes(['success', 'error']) %}
+        {% for messages in app.flashes(['success']) %}
                 {% for message in messages %}
-                    <div class="alert">
+                    <div class="alert alert-success">
                         {{ message }}
                     </div>
                 {% endfor %}
+        {% endfor %}
+
+        {% for messages in app.flashes(['error']) %}
+            {% for message in messages %}
+                <div class="alert alert-error">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
 
         {% block body %}
