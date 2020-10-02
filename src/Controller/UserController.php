@@ -63,7 +63,9 @@ class UserController extends AbstractController
 
         if ($profileForm->isSubmitted() && $profileForm->isValid()) {
 
-            $this->uploadPicture($user, $profileForm);
+            if($profileForm->get('profilePicture')->getData()->getFile()){
+                $this->uploadPicture($user, $profileForm);
+            }
 
             //Si le formulaire est soumis sans que le password ne soit changé, on insère la valeur de l'ancien password dans le nouveau
             $this->updatePassword($oldPassword, $user);
