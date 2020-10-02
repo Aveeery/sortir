@@ -8,7 +8,6 @@
         $('#event_city').change(function(event){
             var id = $("#event_city option:selected");
 
-            // TODO modifier url
             var url = $("#create_event").data('route');
 
             $.ajax({
