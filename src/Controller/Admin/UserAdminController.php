@@ -121,13 +121,14 @@ class UserAdminController extends AbstractController
 
         foreach ($records as $record)
         {
-            $user = (new User())
-                ->setUsername($record['username'])
+            $user = new User();
+
+                $user->setUsername($record['username'])
                 ->setFirstname($record['firstname'])
                 ->setLastname($record['lastname'])
                 ->setPhoneNumber($record['phone_number'])
                 ->setMail($record['mail'])
-                ->setPassword('1234')
+                ->setPassword($this->encoder->encodePassword($user, '1234' ))
                 ->setAdmin(0)
                 ->setActive(1)
                 ->setCampus($campuses[$record['campus']]);
