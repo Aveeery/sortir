@@ -52,7 +52,6 @@ class UserAdminController extends AbstractController
         $csv = new UsersCsv();
 
         $csvForm = $this->createForm(UsersCsvType::class, $csv);
-        //$deactivateForm = $this->createForm(DeactivateUserType::class);
 
         $csvForm->handleRequest($request);
 
@@ -65,31 +64,40 @@ class UserAdminController extends AbstractController
             $csvformat = ['username', 'firstname', 'lastname', 'phone_number', 'mail', 'campus'];
             $file_path = $this->getParameter('kernel.project_dir').'/public/userCsvs/'.$fileName;
 
-            if(($handle = fopen($file_path, 'r')) !== false) {
-                if (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                    for ($i = 0; $i < count($csvformat); $i++)
-                    {
-                        if(strcmp($data[$i], $csvformat[$i]) != 0)
+            try {
+                if(($handle = fopen($file_path, 'r')) !== false) {
+                    if (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                        for ($i = 0; $i < count($csvformat); $i++)
                         {
-                            $this->addFlash('error', "La structure du fichier n'est pas la bonne");
-                            return $this->redirectToRoute('user_admin');
+                            if(strcmp($data[$i], $csvformat[$i]) != 0)
+                            {
+                                $this->addFlash('error', "La structure du fichier n'est pas la bonne");
+                                return $this->redirectToRoute('user_admin');
+                            }
                         }
                     }
                 }
             }
+            catch (\Exception $e) {
+                $this->addFlash('error', "Le fichier n'a pas pu être ouvert");
+                return $this->redirectToRoute('user_admin');
+            }
 
-            $this->processCsv($fileName, $em);
+
+            try {
+                $this->processCsv($fileName, $em);
+            }
+            catch (\Exception $e) {
+                $this->addFlash('error', 'Erreur lors de la sauvegarde en base de données :'.$e->getMessage());
+                return $this->redirectToRoute('user_admin');
+            }
+
             unlink($file_path);
-
-            //$em->persist($csv);
             $em->flush();
-            $this->addFlash('success', 'Les utilisateurs ont été ajoutés en base de donnée');
-
-            return $this->redirectToRoute('user_admin');
         }
 
         $formview = $csvForm->createView();
-        //$deactivateFormView = $deactivateForm->createView();
+
         return $this->render('user_admin/index.html.twig', compact('users', 'formview'));
     }
 
